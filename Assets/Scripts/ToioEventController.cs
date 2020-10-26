@@ -11,7 +11,6 @@ namespace BMProject
         public TextMeshProUGUI hitNumUI;
         private char[] hitNumCharArr;
 
-        private readonly static char[] digits = new char[] { '0', '1', '2', '3', '4','5','6','7','8','9' };
 
         private int hitNum = 0;
 
@@ -58,21 +57,7 @@ namespace BMProject
 
         private void SetText(int param)
         {
-            int div = 100;
-            for (int i = 0; i < 3; ++i)
-            {
-                int p = param / div;
-                if( p > 0 || i == 2)
-                {
-                    hitNumCharArr[i] = digits[p %10];
-                }
-                else
-                {
-                    hitNumCharArr[i] = ' ';
-                }
-                div = div / 10;
-            }
-
+            DigitUtility.SetText(hitNumCharArr, 0, param, 3, false);
             hitNumUI.SetCharArray(hitNumCharArr);
         }
 

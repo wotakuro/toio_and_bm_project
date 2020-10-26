@@ -32,6 +32,19 @@ namespace BMProject
                 UnityEngine.SceneManagement.SceneManager.LoadScene(0);
             }
         }
+        private void OnDestroy()
+        {
+            Disconnect();
+        }
+
+        private void Disconnect()
+        {
+            if(cubeManager != null && cube != null)
+            {
+                cubeManager.Disconnect(cube);
+                cube = null;
+            }
+        }
 
 
     }
