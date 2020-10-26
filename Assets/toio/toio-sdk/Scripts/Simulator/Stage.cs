@@ -19,9 +19,11 @@ namespace toio.Simulator
         {
             this.targetPole = transform.Find("TargetPole");
             this.mat = transform.Find("Mat").GetComponent<Mat>();
+            /*
             this.mainLightObj = transform.Find("Spot Light Main").gameObject;
             this.sideLightObj = transform.Find("Spot Light Side").gameObject;
             this.backLightObj = transform.Find("Spot Light Back").gameObject;
+            */
 
             SceneManager.sceneUnloaded += OnSceneUnloaded;
             SceneManager.sceneLoaded += OnSceneLoaded;
