@@ -17,8 +17,9 @@ namespace BMProject
 
         async void Start()
         {
-            cubeManager = new CubeManager();
-            cube = await cubeManager.SingleConnect();
+            
+            cubeManager = ToioConnectionMgr.Instance.cubeManager;
+            cube = await ToioConnectionMgr.Instance.ConnectCube();
 
             controller.Init(cubeManager, cube);
             eventCtrl.InitCube(cubeManager, cube);
@@ -41,11 +42,11 @@ namespace BMProject
         {
             if(cubeManager != null && cube != null)
             {
-                cubeManager.Disconnect(cube);
+                ToioConnectionMgr.Instance.ReleaseCube(cube);
                 cube = null;
             }
         }
-
-
     }
+
+
 }
