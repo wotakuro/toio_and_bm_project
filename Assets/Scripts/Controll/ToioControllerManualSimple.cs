@@ -1,11 +1,10 @@
 using System;
 using toio;
 using UnityEngine;
-using UnityScript.Steps;
 
 namespace BMProject
 {
-	public class ToioControllerSimple : ToioController
+	public class ToioControllerManualSimple : ToioController
 	{
 		public RectTransform leftStick;
 		private Touch leftTouch;

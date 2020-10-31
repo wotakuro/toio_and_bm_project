@@ -1,9 +1,8 @@
-using System;
 using toio;
 using UnityEngine;
 namespace BMProject
 {
-	public class ToioControllerAdvanced : ToioController
+	public class ToioControllerManualAdvanced : ToioController
 	{
 		public RectTransform leftStick;
 		public RectTransform rightStick;

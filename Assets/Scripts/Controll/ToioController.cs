@@ -15,6 +15,11 @@ namespace BMProject
         {
             this.targetCube = c;
             this.cubeManager = mgr;
+            this.OnEnableInput(cubeManager, targetCube);
+        }
+        public void DisableInput()
+        {
+            this.OnDisableInput();
         }
 
         private void Update()
@@ -23,12 +28,16 @@ namespace BMProject
             {
                 this.UpdateCube(this.cubeManager,this.targetCube);
             }
-            
-        }
+        }        
 
+        protected virtual void OnEnableInput(CubeManager mgr, Cube c)
+        {
+        }
         protected virtual void UpdateCube(CubeManager mgr, Cube c)
         {
-
+        }
+        protected virtual void OnDisableInput()
+        {
         }
     }
 }

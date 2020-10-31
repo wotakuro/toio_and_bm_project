@@ -41,6 +41,11 @@ namespace BMProject
             c.collisionCallback.AddListener("ToioEventCtrl",OnCubeHit);
         }
 
+        public void EndEvent(CubeManager mgr, Cube c)
+        {
+            c.collisionCallback.RemoveListener("ToioEventCtrl");
+        }
+
         // キューブがヒットした時の処理
         private void OnCubeHit(Cube c)
         {

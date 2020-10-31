@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using toio;
+using Cysharp.Threading.Tasks.Triggers;
 
 namespace BMProject
 {
@@ -27,10 +28,21 @@ namespace BMProject
             leftTimer.CountStart(OnTimeOver);
         }
 
+        bool isGameOver = false;
         void OnTimeOver()
         {
+            isGameOver = true;
+            controller.DisableInput();
+            eventCtrl.EndEvent(this.cubeManager, this.cube);
+        }
 
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        private void Update()
+        {
+            if (isGameOver && Input.GetMouseButtonDown(0))
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            }
+
         }
 
         private void OnDestroy()
