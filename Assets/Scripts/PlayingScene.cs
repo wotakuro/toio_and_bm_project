@@ -14,26 +14,25 @@ namespace BMProject
         public ToioController controller;
         public ToioEventController eventCtrl;
 
-        private float time = 30.0f;
 
         async void Start()
         {
-            
+            leftTimer.SetTimer(30.0f);
             cubeManager = ToioConnectionMgr.Instance.cubeManager;
             cube = await ToioConnectionMgr.Instance.ConnectCube();
 
             controller.Init(cubeManager, cube);
             eventCtrl.InitCube(cubeManager, cube);
+            // start Count
+            leftTimer.CountStart(OnTimeOver);
         }
 
-        private void Update()
+        void OnTimeOver()
         {
-            time -= Time.deltaTime;
-            if(time < 0.0f)
-            {
-                UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-            }
+
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
+
         private void OnDestroy()
         {
             Disconnect();
