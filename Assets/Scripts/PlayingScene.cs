@@ -10,6 +10,7 @@ namespace BMProject
         private CubeManager cubeManager;
         private Cube cube;
 
+        public LeftTimer leftTimer;
         public ToioController controller;
         public ToioEventController eventCtrl;
 

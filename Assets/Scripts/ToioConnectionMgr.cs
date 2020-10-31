@@ -58,8 +58,9 @@ namespace BMProject
         {
             for (int i = 0; i < availableCubes.Count; ++i)
             {
-                if(availableCubes[i].isConnected)
+                if(!availableCubes[i].isConnected)
                 {
+                    cubeManager.Disconnect(availableCubes[i]);
                     availableCubes.RemoveAt(i);
                     --i;
                 }

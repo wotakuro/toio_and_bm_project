@@ -16,7 +16,14 @@ namespace BMProject
 			base.UpdateCube(cMgr, c);
 			float num = 0f;
 			float num2 = 0f;
-			this.UpdateInputMobile(out num, out num2);
+			if (Application.isMobilePlatform)
+			{
+				this.UpdateInputMobile(out num, out num2);
+			}
+			else
+			{
+				UpdateInputPC(out num, out num2);
+			}
 			this.UpdateUI(num, num2);
 			if (cMgr != null && cMgr.IsControllable(c) && CubeOrderBalancer.Instance.IsIdle(c))
 			{
