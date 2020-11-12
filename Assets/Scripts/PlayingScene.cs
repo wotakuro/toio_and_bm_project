@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using toio;
 using Cysharp.Threading.Tasks.Triggers;
+using UnityEngine.Playables;
 
 namespace BMProject
 {
@@ -14,17 +15,30 @@ namespace BMProject
         public LeftTimer leftTimer;
         public ToioController controller;
         public ToioEventController eventCtrl;
+        public PlayableDirector startTimeline;
 
 
         async void Start()
         {
             leftTimer.SetTimer(30.0f);
-            cubeManager = ToioConnectionMgr.Instance.cubeManager;
-            cube = await ToioConnectionMgr.Instance.ConnectCube();
+            this.cubeManager = ToioConnectionMgr.Instance.cubeManager;
+            this.cube = await ToioConnectionMgr.Instance.ConnectCube();
 
-            controller.Init(cubeManager, cube);
-            eventCtrl.InitCube(cubeManager, cube);
-            // start Count
+
+            this.StartCoroutine(PlayStart());
+        }
+
+        // プレイ開始
+        private IEnumerator PlayStart()
+        {
+            startTimeline.Play();
+            while(startTimeline.state == PlayState.Playing)
+            {
+                yield return null;
+            }
+
+            this.controller.Init(cubeManager, cube);
+            this.eventCtrl.InitCube(cubeManager, cube);
             leftTimer.CountStart(OnTimeOver);
         }
 

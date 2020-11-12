@@ -9,6 +9,11 @@ namespace BMProject
     public class ToioEventController : MonoBehaviour
     {
         public TextMeshProUGUI hitNumUI;
+
+        public GameObject hitPrefab;
+        private ParticleSystem hitParticle;
+        private AudioSource hitAudio;
+
         private char[] hitNumCharArr;
 
 
@@ -19,6 +24,13 @@ namespace BMProject
 
         private void Awake()
         {
+            this.InitHitArray();
+            var gmo = GameObject.Instantiate(hitPrefab);
+            this.hitAudio = gmo.GetComponentInChildren<AudioSource>(true);
+            this.hitParticle = gmo.GetComponentInChildren<ParticleSystem>(true);
+        }
+
+        void InitHitArray() {
             hitNumCharArr = new char[16];
             for (int i = 0; i < 3; ++i)
             {
@@ -28,6 +40,7 @@ namespace BMProject
             hitNumCharArr[4] = 'I';
             hitNumCharArr[5] = 'T';
             SetText(0);
+
         }
 
         private void Update()
@@ -53,6 +66,15 @@ namespace BMProject
             {
                 return;
             }
+            if (this.hitParticle)
+            {
+                this.hitParticle.Play(true);
+            }
+            if (this.hitAudio)
+            {
+                this.hitAudio.Play();
+            }
+
             c.PlayPresetSound(0);
             c.TurnLedOn(255, 200, 200, 120);
             ++hitNum;
