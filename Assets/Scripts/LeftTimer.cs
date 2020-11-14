@@ -6,7 +6,7 @@ namespace BMProject
 {
     public class LeftTimer : MonoBehaviour
     {
-        public TextMeshProUGUI text;
+        public TextMeshPro text;
         private float time = 30.0f;
         private bool isCount = false;
         private char[] charBuf = new char[8];

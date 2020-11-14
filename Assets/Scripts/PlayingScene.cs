@@ -16,6 +16,7 @@ namespace BMProject
         public ToioController controller;
         public ToioEventController eventCtrl;
         public PlayableDirector startTimeline;
+        public PlayableDirector timeOutTimeline;
 
 
         async void Start()
@@ -48,6 +49,7 @@ namespace BMProject
             isGameOver = true;
             controller.DisableInput();
             eventCtrl.EndEvent(this.cubeManager, this.cube);
+            timeOutTimeline.Play();
         }
 
         private void Update()
