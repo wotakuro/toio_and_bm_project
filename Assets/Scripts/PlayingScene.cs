@@ -12,11 +12,16 @@ namespace BMProject
         private CubeManager cubeManager;
         private Cube cube;
 
-        public LeftTimer leftTimer;
-        public ToioController controller;
-        public ToioEventController eventCtrl;
-        public PlayableDirector startTimeline;
-        public PlayableDirector timeOutTimeline;
+        [SerializeField]
+        private LeftTimer leftTimer;
+        [SerializeField]
+        private ToioController controller;
+        [SerializeField]
+        private ToioEventController eventCtrl;
+        [SerializeField]
+        private PlayableDirector startTimeline;
+        [SerializeField]
+        private PlayableDirector timeOutTimeline;
 
 
         async void Start()

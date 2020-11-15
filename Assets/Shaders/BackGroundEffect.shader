@@ -3,7 +3,9 @@
     Properties
     {
         _LineSize("LineSize", Float) = 0.01
-        _LinePad("LineSize", Float) = 0.1
+        _LinePad("LinePadding", Float) = 0.1
+        _LineColor("LineColor", Color) = (0,1,1,1)
+        _ScrollParam("Scroll",Vector)=(0,0,0,0)
     }
     SubShader
     {
@@ -34,7 +36,9 @@
 
             float _LineSize;
             float _LinePad;
+            float4 _LineColor;
             float4 _MainTex_ST;
+            float4 _ScrollParam;
 
             v2f vert (appdata v)
             {
@@ -44,20 +48,27 @@
                 return o;
             }
 
+            float getUvValue(float2 uv) {
+                float xVal = fmod(uv.x, _LinePad);
+                xVal = step(xVal, _LineSize);
+                float yVal = fmod(uv.y, _LinePad);
+                yVal = step(yVal, _LineSize);
+                return saturate(xVal + yVal);
+            }
+
+
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed4 col;
-            float xVal = fmod( i.uv.x , _LinePad);
-            xVal = step(xVal, _LineSize);
-            float yVal = fmod(i.uv.y, _LinePad);
-            yVal = step(yVal, _LineSize);
+                float val = getUvValue(i.uv + _ScrollParam.xy);
 
-            col.r = xVal + yVal;
-            col.g = 0;
-            col.b = 0;
-            col.a = 1;
+                col.r = val * _LineColor.r;
+                col.g = val * _LineColor.g;
+                col.b = val * _LineColor.b;
+                col.a = 1;
                 return col;
             }
+
             ENDCG
         }
     }
