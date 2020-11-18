@@ -21,12 +21,10 @@ namespace BMProject
 				this.UpdateInputPC(out control);
 			}
 			this.UpdateUI(control);
-			if (cMgr != null && cMgr.IsControllable(c) && CubeOrderBalancer.Instance.IsIdle(c))
-			{
-				int tl, tr;
-				GetToioMotor(control, out tl, out tr);
-				c.Move(tl,tr, 0, Cube.ORDER_TYPE.Weak);
-			}
+
+			int tl, tr;
+			GetToioMotor(control, out tl, out tr);
+			this.UpdateCubeMove(tl, tr);
 		}
 
 		private void GetToioMotor(Vector2 param,out int l,out int r)

@@ -24,10 +24,7 @@ namespace BMProject
 				UpdateInputPC(out num, out num2);
 			}
 			this.UpdateUI(num, num2);
-			if (cMgr != null && cMgr.IsControllable(c) && CubeOrderBalancer.Instance.IsIdle(c))
-			{
-				c.Move((int)(num * 60f), (int)(num2 * 60f), 0, Cube.ORDER_TYPE.Weak);
-			}
+			this.UpdateCubeMove((int)(num * 60f), (int)(num2 * 60f));
 		}
 		private void UpdateUI(float l, float r)
 		{

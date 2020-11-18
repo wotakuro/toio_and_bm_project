@@ -18,7 +18,7 @@ namespace BMProject
 		protected override void OnEnableInput(CubeManager mgr, Cube c)
 		{
 			base.OnEnableInput(mgr, c);
-			this.execute = this.StartCoroutine(Control(mgr, c));
+			this.execute = this.StartCoroutine(Control(mgr,c));
 		}
 
 		protected override void OnDisableInput()
@@ -27,13 +27,13 @@ namespace BMProject
 			StopCoroutine(this.execute);
 		}
 
-		IEnumerator Control(CubeManager cMgr, Cube c)
+		IEnumerator Control(CubeManager mgr, Cube c)
 		{
 			while (true)
 			{
-				c.Move(moveSpeed, moveSpeed, moveMsec, Cube.ORDER_TYPE.Strong);
+				this.SendMoveCmdCube(moveSpeed, moveSpeed, moveMsec);
 				yield return new WaitForSeconds(moveMsec * 0.001f + 0.1f);
-				c.Move(-rotateSpeed, rotateSpeed, rotateTime, Cube.ORDER_TYPE.Strong);
+				this.SendMoveCmdCube(-rotateSpeed, rotateSpeed, rotateTime);
 				yield return new WaitForSeconds(rotateTime * 0.001f + 0.3f);
 			}
 		}
