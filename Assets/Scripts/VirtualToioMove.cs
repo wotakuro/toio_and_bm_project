@@ -46,10 +46,9 @@ namespace BMProject
         {
             if (this.moveCmdDuration != 0)
             {
-                this.moveCmdTime = this.moveCmdDuration * 0.01f;
+                this.moveCmdTime = this.moveCmdDuration * 0.001f;
                 this.moveCmdDuration = 0;
             }
-            Debug.Log("moveCmdTime");
             this.Simulate(moveLeft, moveRight);
             moveCmdTime -= Time.fixedDeltaTime;
             if (this.moveCmdTime < 0)

@@ -113,10 +113,6 @@ namespace toio.Simulator
                 speedL += (targetSpeedL - speedL) / Mathf.Max(cube.motorTau,dt) * dt;
                 speedR += (targetSpeedR - speedR) / Mathf.Max(cube.motorTau,dt) * dt;
             }
-            if(this.motorLeft < 0)
-            {
-                Debug.Log("Origin " + motorLeft + "," + motorRight + ";;" +Time.frameCount);
-            }
             cube._SetSpeed(speedL, speedR);
         }
 

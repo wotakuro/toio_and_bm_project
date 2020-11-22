@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using toio;
 using TMPro;
+using Cinemachine;
 
 namespace BMProject
 {
@@ -14,6 +15,7 @@ namespace BMProject
         private ParticleSystem hitParticle;
         private AudioSource hitAudio;
 
+        private CinemachineCollisionImpulseSource impulseSource;
 
 
         private int hitNum = 0;
@@ -26,12 +28,16 @@ namespace BMProject
             var gmo = GameObject.Instantiate(hitPrefab);
             this.hitAudio = gmo.GetComponentInChildren<AudioSource>(true);
             this.hitParticle = gmo.GetComponentInChildren<ParticleSystem>(true);
+
+            this.impulseSource = this.GetComponent<CinemachineCollisionImpulseSource>();
         }
+
 
 
         private void Update()
         {
             this.tm += Time.deltaTime;
+
         }
 
         // Start is called before the first frame update
@@ -59,6 +65,11 @@ namespace BMProject
             if (this.hitAudio)
             {
                 this.hitAudio.Play();
+            }
+            if (impulseSource)
+            {
+                Debug.Log("Impulse");
+                impulseSource.GenerateImpulseAt(Vector3.zero, Vector3.forward);
             }
 
             c.PlayPresetSound(0);
