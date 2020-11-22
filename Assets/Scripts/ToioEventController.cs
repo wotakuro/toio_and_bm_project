@@ -68,7 +68,6 @@ namespace BMProject
             }
             if (impulseSource)
             {
-                Debug.Log("Impulse");
                 impulseSource.GenerateImpulseAt(Vector3.zero, Vector3.forward);
             }
 

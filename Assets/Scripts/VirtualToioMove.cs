@@ -24,6 +24,10 @@ namespace BMProject
         private void Start()
         {
             rb = this.GetComponent<Rigidbody>();
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+
+            this.rb.maxAngularVelocity = 21f;
         }
 
         public void Move(int left,int right)
@@ -44,23 +48,29 @@ namespace BMProject
 
         private void FixedUpdate()
         {
+            float dt = Time.deltaTime;
+            this.ScheduleMotor(dt);
+            this.Simulate(dt,moveLeft, moveRight);
+        }
+        private void ScheduleMotor(float dt)
+        {
+            moveCmdTime -= dt;
             if (this.moveCmdDuration != 0)
             {
                 this.moveCmdTime = this.moveCmdDuration * 0.001f;
                 this.moveCmdDuration = 0;
             }
-            this.Simulate(moveLeft, moveRight);
-            moveCmdTime -= Time.fixedDeltaTime;
+
             if (this.moveCmdTime < 0)
             {
                 this.moveLeft = 0;
                 this.moveRight = 0;
             }
+
         }
 
-        void Simulate(float motorLeft,float motorRight)
+        void Simulate(float dt , float motorLeft,float motorRight)
         {
-            var dt = Time.deltaTime;
 
             float deadzone = 8f;
             // 目標速度を計算
@@ -73,6 +83,8 @@ namespace BMProject
             speedL += (targetSpeedL - speedL) / Mathf.Max(motorTau, dt) * dt;
             speedR += (targetSpeedR - speedR) / Mathf.Max(motorTau, dt) * dt;
             _SetSpeed(speedL, speedR);
+
+
         }
 
         // toioSDKよりシミュレーターの処理を

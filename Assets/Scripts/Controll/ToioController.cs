@@ -65,7 +65,6 @@ namespace BMProject
                 if (virtualToio)
                 {
                     virtualToio.Move(left, right, duration);
-                   // virtualToio._SetSpeed(left, right);
                 }
             }
         }
