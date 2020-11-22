@@ -49,9 +49,9 @@
             }
 
             float getUvValue(float2 uv) {
-                float xVal = fmod(uv.x, _LinePad);
+                float xVal = fmod(uv.x + _LineSize * 0.5, _LinePad);
                 xVal = step(xVal, _LineSize);
-                float yVal = fmod(uv.y, _LinePad);
+                float yVal = fmod(uv.y + _LineSize * 0.5, _LinePad);
                 yVal = step(yVal, _LineSize);
                 return saturate(xVal + yVal);
             }

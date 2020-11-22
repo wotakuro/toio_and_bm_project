@@ -16,6 +16,11 @@ namespace BMProject
         private Rigidbody rb;
         //private Cube cube;
 
+        private int moveLeft = 0;
+        private int moveRight = 0;
+        private int moveCmdDuration = 0;
+        private float moveCmdTime = 0;
+
         private void Start()
         {
             rb = this.GetComponent<Rigidbody>();
@@ -23,13 +28,35 @@ namespace BMProject
 
         public void Move(int left,int right)
         {
-            
+            this.moveCmdTime = 0;
+            this.moveLeft = left;
+            this.moveRight = right;
+            this.moveCmdDuration = 100;
+        }
+        public void Move(int left, int right,int durationMs)
+        {
+            this.moveCmdTime = 0;
+            this.moveCmdDuration = durationMs;
+            this.moveLeft = left;
+            this.moveRight = right;
         }
 
 
         private void FixedUpdate()
         {
-            
+            if (this.moveCmdDuration != 0)
+            {
+                this.moveCmdTime = this.moveCmdDuration * 0.01f;
+                this.moveCmdDuration = 0;
+            }
+            Debug.Log("moveCmdTime");
+            this.Simulate(moveLeft, moveRight);
+            moveCmdTime -= Time.fixedDeltaTime;
+            if (this.moveCmdTime < 0)
+            {
+                this.moveLeft = 0;
+                this.moveRight = 0;
+            }
         }
 
         void Simulate(float motorLeft,float motorRight)
@@ -46,7 +73,7 @@ namespace BMProject
 
             speedL += (targetSpeedL - speedL) / Mathf.Max(motorTau, dt) * dt;
             speedR += (targetSpeedR - speedR) / Mathf.Max(motorTau, dt) * dt;
-
+            _SetSpeed(speedL, speedR);
         }
 
         // toioSDKよりシミュレーターの処理を

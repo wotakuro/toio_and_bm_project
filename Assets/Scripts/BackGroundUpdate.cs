@@ -28,21 +28,20 @@ public class BackGroundUpdate : MonoBehaviour
         this.lineColorProp = Shader.PropertyToID("_LineColor");
         this.scrollProp = Shader.PropertyToID("_ScrollParam");
 
-        propertyBlock.SetFloat(lineWidthProp, 0.002f);
-        propertyBlock.SetFloat(linePadProp, 0.04f);
+        propertyBlock.SetFloat(lineWidthProp, 0.0008f);
+        propertyBlock.SetFloat(linePadProp, 0.01f);
         rendererObj.SetPropertyBlock(propertyBlock);
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveFlag = true;
         if (moveFlag)
         {
             this.scrollParam.y += Time.deltaTime * 0.1f;
         }
-        propertyBlock.SetFloat(lineWidthProp, 0.002f +
-            0.0006f * Mathf.Cos(this.scrollParam.y * 50));
+        propertyBlock.SetFloat(lineWidthProp, 0.0008f +
+            0.0002f * Mathf.Cos(Time.time*5));
 
         propertyBlock.SetVector(scrollProp, scrollParam);
         rendererObj.SetPropertyBlock(propertyBlock);

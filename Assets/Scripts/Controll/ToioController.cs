@@ -52,6 +52,7 @@ namespace BMProject
                 this.targetCube.Move(left, right, 0, Cube.ORDER_TYPE.Weak);
 
 
+                virtualToio.Move(left, right);
             }
         }
         protected void SendMoveCmdCube(int left, int right,int duration)
@@ -63,6 +64,7 @@ namespace BMProject
 
                 if (virtualToio)
                 {
+                    virtualToio.Move(left, right, duration);
                    // virtualToio._SetSpeed(left, right);
                 }
             }

@@ -71,8 +71,8 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _LinePad: 0.05
-    - _LineSize: 0.003
+    - _LinePad: 0.01
+    - _LineSize: 0.0008
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _QueueOffset: 0
