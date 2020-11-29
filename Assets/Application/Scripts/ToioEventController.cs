@@ -75,7 +75,7 @@ namespace BMProject
             c.TurnLedOn(255, 200, 200, 120);
             ++hitNum;
             this.lastHitTime = this.tm;
-            scoreBoard.SetScore(hitNum);
+            scoreBoard.AddScore(1);
         }
 
     }

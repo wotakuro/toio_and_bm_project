@@ -9,13 +9,20 @@ namespace BMProject
     {
         public TextMeshPro hitNumUI;
         private char[] hitNumCharArr;
+        private int currentScore = 0;
 
         private void Awake()
         {
             InitHitArray();
         }
 
-        public void SetScore(int score)
+        public void AddScore(int p)
+        {
+            currentScore += p;
+            SetScore(currentScore);
+        }
+
+        private void SetScore(int score)
         {
             DigitUtility.SetText(hitNumCharArr, 0, score, 3, false);
             hitNumUI.SetCharArray(hitNumCharArr);

@@ -51,6 +51,8 @@
             }
 
             float getUvValue(float2 uv) {
+                uv.x = abs(uv.x);
+                uv.y = abs(uv.y);
                 float xVal = fmod(uv.x + _LineSize * 0.5, _LinePad);
                 float yVal = fmod(uv.y + _LineSize * 0.5, _LinePad);
                 xVal = 1.0 - saturate(abs(xVal - _LineSize) / _LineSize);

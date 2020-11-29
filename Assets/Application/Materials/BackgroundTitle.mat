@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Background
+  m_Name: BackgroundTitle
   m_Shader: {fileID: 4800000, guid: bc5524d10c7740148b46053d30a9c0b6, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -71,8 +71,8 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _LinePad: 0.008
-    - _LineSize: 0.0003
+    - _LinePad: 0.04
+    - _LineSize: 0.002
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _QueueOffset: 0
