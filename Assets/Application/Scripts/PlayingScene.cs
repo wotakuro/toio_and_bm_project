@@ -25,11 +25,15 @@ namespace BMProject
         [SerializeField]
         private GameObject playingUI;
 
+        [SerializeField]
+        private ResultUI resultUI;
+
         private void Awake()
         {
             startTimeline.gameObject.SetActive(false);
             timeOutTimeline.gameObject.SetActive(false);
             playingUI.SetActive(false);
+            resultUI.gameObject.SetActive(false);
         }
 
         async void Start()
@@ -66,7 +70,8 @@ namespace BMProject
 
             timeOutTimeline.gameObject.SetActive(true);
             timeOutTimeline.Play();
-            this.playingUI.SetActive(false);
+            //this.playingUI.SetActive(false);
+            //timeOutTimeline.stopped +=(a)=> { resultUI.StartResult(); };
         }
 
         private void Update()
