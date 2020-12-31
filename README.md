@@ -1,6 +1,6 @@
 # toio_and_bm_project
 toioとボトルマンを使う感じの遊びプロジェクトです。
-iOSでのみ動作します(※ toio SDK for Unity自体が Android未対応です)
+iOS/Androidで動作します
 
 ## 利用OSSについて
 こちらでは toio SDK for Unityを利用しています。<br />
