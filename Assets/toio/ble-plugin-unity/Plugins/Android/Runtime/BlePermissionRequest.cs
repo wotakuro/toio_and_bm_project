@@ -3,6 +3,7 @@
 #define UNITY_ANDROID_RUNTIME
 #endif
 
+#define UNITY_ANDROID_RUNTIME
 
 #if UNITY_ANDROID_RUNTIME
 using System.Collections;
@@ -26,20 +27,41 @@ namespace toio.Android
 
         public IEnumerator Request()
         {
-            string permission = Permission.FineLocation;
-            if (!Permission.HasUserAuthorizedPermission(permission))
+            var permissions = GetPermissionStr();
+            foreach (var permission in permissions)
             {
-                Permission.RequestUserPermission(permission);
+                bool flag = true;
+                while (flag)
+                {
+                    if (!Permission.HasUserAuthorizedPermission(permission))
+                    {
+                        Permission.RequestUserPermission(permission);
+                    }
+                    yield return null;
+                    if (!Permission.HasUserAuthorizedPermission(permission))
+                    {
+                        this.errorAction("No Permission:" + permission);
+                    }
+                    else
+                    {
+                        flag = false;
+                    }
+                }
             }
-            yield return null;
-            if (Permission.HasUserAuthorizedPermission(permission))
-            {
-                this.initializedAction();
-            }
-            else
-            {
-                this.errorAction("No Permission:" + permission);
-            }
+            this.initializedAction();
+        }
+
+        private string[] GetPermissionStr()
+        {
+            int apiLevel = GetAPIVersion();
+            //            permission = Permission.CoarseLocation;
+            return new string[] { Permission.FineLocation };
+        }
+        private int GetAPIVersion()
+        {
+            var cls = new AndroidJavaClass("android.os.Build$VERSION");
+            var apiLevel = cls.GetStatic<int>("SDK_INT");
+            return apiLevel;
         }
 
 

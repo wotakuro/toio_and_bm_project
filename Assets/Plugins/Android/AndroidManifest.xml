@@ -4,11 +4,14 @@
     package="com.unity3d.player">
   <uses-permission android:name="android.permission.BLUETOOTH" />
   <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+  <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
   <!--
          If your app targets Android 9 or lower, you can declare
          ACCESS_COARSE_LOCATION instead.
     -->
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
   <application
 		android:theme="@style/UnityThemeSelector"
 		android:icon="@drawable/app_icon"
