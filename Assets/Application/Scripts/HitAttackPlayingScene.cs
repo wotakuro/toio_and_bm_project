@@ -49,8 +49,6 @@ namespace BMProject
             waitingToioConnect.StartWaiting();
             this.cubeManager = ToioConnectionMgr.Instance.cubeManager;
             this.cube = await ToioConnectionMgr.Instance.ConnectCube();
-            // 衝突レベルセット
-            this.cube.ConfigCollisionThreshold(3);
             
             playingUI.SetActive(true);
             leftTimer.SetTimer(30.0f);
@@ -129,7 +127,6 @@ namespace BMProject
         private void OnDisconnectCube()
         {
           //  this.leftTimer.Pause();
-
         }
 
         private void Update()

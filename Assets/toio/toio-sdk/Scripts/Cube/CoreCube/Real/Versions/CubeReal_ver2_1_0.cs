@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 
 namespace toio
 {
@@ -32,6 +34,7 @@ namespace toio
 
         protected override void Recv_sensor(byte[] data)
         {
+
             // https://toio.github.io/toio-spec/docs/2.0.0/ble_sensor
             int type = data[0];
             if (1 == type)
@@ -48,7 +51,7 @@ namespace toio
                     this.slopeCallback.Notify(this);
                 }
 
-                if (_isCollisionDetected != this.isCollisionDetected)
+                if (_isCollisionDetected )
                 {
                     this.isCollisionDetected = _isCollisionDetected;
                     this.collisionCallback.Notify(this);

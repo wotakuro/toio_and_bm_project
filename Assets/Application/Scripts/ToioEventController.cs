@@ -44,14 +44,14 @@ namespace BMProject
         // Start is called before the first frame update
         public void InitCube(CubeManager mgr, Cube c)
         {
-            c.collisionCallback.AddListener("ToioEventCtrl",OnCubeHit);
-            c.doubleTapCallback.AddListener("doubleTapCtrl", OnCubeHit);
+            // 衝突レベルセット
+            c.ConfigCollisionThreshold(7);
+            c.collisionCallback.AddListener("ToioEventCtrl", OnCubeHit);
         }
 
         public void EndEvent(CubeManager mgr, Cube c)
         {
             c.collisionCallback.RemoveListener("ToioEventCtrl");
-            c.doubleTapCallback.RemoveListener("doubleTapCtrl");
         }
 
         // キューブがヒットした時の処理
