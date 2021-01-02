@@ -8,7 +8,7 @@ namespace BMProject
     {
         private static T instance;
 
-        public T Instance
+        public static T Instance
         {
             get
             {
@@ -16,12 +16,12 @@ namespace BMProject
             }
         }
 
-        void Awake()
+        protected void Awake()
         {
             instance = this as T;
         }
 
-        void OnDestroy()
+        protected void OnDestroy()
         {
             instance = null;
         }

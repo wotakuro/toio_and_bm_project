@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Application/Scenes/PlayMode.unity
+    path: Assets/Application/Scenes/SelectMode.unity
+    guid: b0b3f656f0b236e4eb6188c766bf4795
+  - enabled: 1
+    path: Assets/Application/Scenes/HitAttackPlay.unity
     guid: c7fb338ca0f9589419966aa42cde22c4
   m_configObjects: {}

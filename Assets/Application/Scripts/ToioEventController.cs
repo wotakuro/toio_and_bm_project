@@ -4,6 +4,7 @@ using UnityEngine;
 using toio;
 using TMPro;
 using Cinemachine;
+using System.Threading;
 
 namespace BMProject
 {
@@ -44,11 +45,13 @@ namespace BMProject
         public void InitCube(CubeManager mgr, Cube c)
         {
             c.collisionCallback.AddListener("ToioEventCtrl",OnCubeHit);
+            c.doubleTapCallback.AddListener("doubleTapCtrl", OnCubeHit);
         }
 
         public void EndEvent(CubeManager mgr, Cube c)
         {
             c.collisionCallback.RemoveListener("ToioEventCtrl");
+            c.doubleTapCallback.RemoveListener("doubleTapCtrl");
         }
 
         // キューブがヒットした時の処理
@@ -75,7 +78,7 @@ namespace BMProject
             c.TurnLedOn(255, 200, 200, 120);
             ++hitNum;
             this.lastHitTime = this.tm;
-            scoreBoard.AddScore(1);
+            scoreBoard.AddScore(1,LeftTimer.Instance.GetTimeFromStart());
         }
 
     }

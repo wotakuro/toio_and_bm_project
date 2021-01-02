@@ -5,26 +5,34 @@ using TMPro;
 
 namespace BMProject
 {
-    public class PlayingScoreBoard : MonoBehaviour
+    public class PlayingScoreBoard : UnitySingletonBehaviour<PlayingScoreBoard>
     {
         public TextMeshPro hitNumUI;
         private char[] hitNumCharArr;
         private int currentScore = 0;
+        private List<float> addScoreTimings;
 
-        private void Awake()
+        private new void Awake()
         {
+            base.Awake();
+            this.addScoreTimings = new List<float>(32);
             InitHitArray();
         }
 
-        public void AddScore(int p)
+        public void AddScore(int p,float time)
         {
             currentScore += p;
+            this.addScoreTimings.Add(time);
             SetScore(currentScore);
         }
 
         public int GetScore()
         {
             return this.currentScore;
+        }
+        public List<float> GetTimings()
+        {
+            return this.addScoreTimings;
         }
 
         private void SetScore(int score)

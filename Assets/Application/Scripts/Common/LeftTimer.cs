@@ -1,26 +1,37 @@
 ﻿using UnityEngine;
 using TMPro;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace BMProject
 {
-    public class LeftTimer : MonoBehaviour
+    public class LeftTimer : UnitySingletonBehaviour<LeftTimer>
     {
         public TextMeshPro text;
-        private float time = 30.0f;
+        private float limitTime = 30.0f;
+        private float leftTime = 30.0f;
         private bool isCount = false;
         private char[] charBuf = new char[8];
         private Action OnEndAction;
 
-        public float GetTimer()
+        public float GetLeftTime()
         {
-            return time;
+            return this.leftTime;
+        }
+        public float GetLimitTime()
+        {
+            return this.limitTime;
+        }
+        public float GetTimeFromStart()
+        {
+            return (this.limitTime - this.leftTime);
         }
 
         public void SetTimer(float t)
         {
-            this.time = t;
-            this.Apply(time);
+            this.limitTime = t;
+            this.leftTime = t;
+            this.Apply(leftTime);
         }
 
         public void CountStart(Action onEnd)
@@ -48,13 +59,18 @@ namespace BMProject
             this.text.SetCharArray(charBuf, 0, 8);
         }
 
+        public void Pause()
+        {
+            this.isCount = false;
+        }
+
         private void Update()
         {
             if (isCount)
             {
-                time -= Time.deltaTime;
-                Apply(time);
-                if( time <= 0.0f && this.OnEndAction != null)
+                leftTime -= Time.deltaTime;
+                Apply(leftTime);
+                if( leftTime <= 0.0f && this.OnEndAction != null)
                 {
                     this.OnEndAction();
                     this.OnEndAction = null;
