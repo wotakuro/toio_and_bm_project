@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 
@@ -23,6 +21,14 @@ namespace toio.Simulator
         // ============ Simulate ============
         public virtual void Simulate(){
             SimulateMotor();
+        }
+
+        public virtual void Init(){
+
+        }
+
+        public virtual void Reset(){
+            ResetMotor();
         }
 
 
@@ -54,71 +60,127 @@ namespace toio.Simulator
 
 
         // ============ Motion Sensor ============
+        public virtual void StartNotification_MotionSensor(System.Action<object[]> action)
+        { NotSupportedWarning(); }
+
         // ---------- 2.0.0 ----------
         // Sloped
         public virtual bool sloped {
             get{ NotSupportedWarning(); return default; }
             internal set{ NotSupportedWarning(); }}
-        public virtual void StartNotification_Sloped(System.Action<bool> action)
-        { NotSupportedWarning(); }
 
         // Collision Detected
-        public virtual bool collisionDetected {
-            get{ NotSupportedWarning(); return default; }
-            internal set{ NotSupportedWarning(); }}
-        public virtual void StartNotification_CollisionDetected(System.Action<bool> action)
+        internal virtual void TriggerCollision()
         { NotSupportedWarning(); }
         // ---------- 2.1.0 ----------
         // Pose
         public virtual Cube.PoseType pose {
             get{ NotSupportedWarning(); return default; }
             internal set{ NotSupportedWarning(); }}
-        public virtual void StartNotification_Pose(System.Action<Cube.PoseType> action)
-        { NotSupportedWarning(); }
         // Double Tap
-        public virtual bool doubleTap {
-            get{ NotSupportedWarning(); return default; }
-            internal set{ NotSupportedWarning(); }}
-        public virtual void StartNotification_DoubleTap(System.Action<bool> action)
+        internal virtual void TriggerDoubleTap()
         { NotSupportedWarning(); }
 
+        // ---------- 2.2.0 ----------
+        // Shake
+        public virtual int shakeLevel {
+            get{ NotSupportedWarning(); return default; }
+            internal set{ NotSupportedWarning(); }}
 
 
         // ============ Motor ============
-        protected float speedL = 0;  // (m/s)
-        protected float speedR = 0;
-        protected float motorLeft{get; set;} = 0;   // モーター指令値
-        protected float motorRight{get; set;} = 0;
+        protected enum MotorCmdType : byte
+        {
+            None, MotorTimeCmd, MotorTargetCmd, MotorMultiTargetCmd, MotorAccCmd
+        }
+        protected MotorCmdType motorCmdType = MotorCmdType.None;
+
+        protected float motorCmdL {get; set;} = 0;   // モーター指令値
+        protected float motorCmdR {get; set;} = 0;
         public virtual void SimulateMotor()
         {
-            var dt = Time.deltaTime;
+            float targetSpeedL = motorCmdL * CubeSimulator.VDotOverU / Mat.DotPerM;
+            float targetSpeedR = motorCmdR * CubeSimulator.VDotOverU / Mat.DotPerM;
 
-            // 目標速度を計算
-            // target speed
-            float targetSpeedL = motorLeft * CubeSimulator.VDotOverU / Mat.DotPerM;
-            float targetSpeedR = motorRight * CubeSimulator.VDotOverU / Mat.DotPerM;
-            if (Mathf.Abs(motorLeft) < deadzone) targetSpeedL = 0;
-            if (Mathf.Abs(motorRight) < deadzone) targetSpeedR = 0;
-
-            // 速度更新
-            // update speed
-            if (cube.forceStop || this.button)   // 強制的に停止
-            {
-                speedL = 0; speedR = 0;
-            }
-            else
-            {
-                if (cube.offGroundL) targetSpeedL = 0;
-                if (cube.offGroundR) targetSpeedR = 0;
-                speedL += (targetSpeedL - speedL) / Mathf.Max(cube.motorTau,dt) * dt;
-                speedR += (targetSpeedR - speedR) / Mathf.Max(cube.motorTau,dt) * dt;
-            }
-            cube._SetSpeed(speedL, speedR);
+            cube.SetMotorTargetSpd(targetSpeedL, targetSpeedR);
+        }
+        protected virtual void ResetMotor()
+        {
+            motorCmdL = 0; motorCmdR = 0;
         }
 
+        // ---------- 2.1.0 ----------
+        // Target Move
+        public virtual void StartNotification_TargetMove(System.Action<int, Cube.TargetMoveRespondType> action)
+        { NotSupportedWarning(); }
+        // Multi Target Move
+        public virtual void StartNotification_MultiTargetMove(System.Action<int, Cube.TargetMoveRespondType> action)
+        { NotSupportedWarning(); }
+
+        // ---------- 2.2.0 ----------
+        // Motor Speed
+        public virtual int leftMotorSpeed {
+            get{ NotSupportedWarning(); return default; }
+            protected set{ NotSupportedWarning(); }}
+        public virtual int rightMotorSpeed {
+            get{ NotSupportedWarning(); return default; }
+            protected set{ NotSupportedWarning(); }}
+        public virtual void StartNotification_MotorSpeed(System.Action<int, int> action)
+        { NotSupportedWarning(); }
+
+
+        // ============ Magnetic ============
+        // ---------- 2.2.0 ----------
+        // Magnet State
+        public virtual Cube.MagnetState magnetState {
+            get{ NotSupportedWarning(); return default; }
+            protected set{ NotSupportedWarning(); }}
+        public virtual void StartNotification_MagnetState(System.Action<Cube.MagnetState> action)
+        { NotSupportedWarning(); }
+
+        // ---------- 2.3.0 ----------
+        // Magnetic Force
+        public virtual void StartNotification_Attitude(System.Action<Vector3> actionE, System.Action<Quaternion> actionQ)
+        { NotSupportedWarning(); }
+
+        // ============ Light ============
+        protected enum LightCmdType : byte
+        {
+            None, LightCmd, LightSenarioCmd
+        }
+        protected LightCmdType lightCmdType = LightCmdType.None;
+
+        // ============ Sound ============
+        protected enum SoundCmdType : byte
+        {
+            None, SoundSenarioCmd
+        }
+        protected SoundCmdType soundCmdType = SoundCmdType.None;
+
+        // ============ Attitude ============
+        // ---------- 2.3.0 ----------
+        public virtual Vector3 magneticForce {
+            get{ NotSupportedWarning(); return default; }
+            protected set{ NotSupportedWarning(); }}
+        public virtual void StartNotification_MagneticForce(System.Action<Vector3> action)
+        { NotSupportedWarning(); }
+
+
+        // ============ Config ============
+        public virtual void StartNotification_ConfigMotorRead(System.Action<bool> action)
+        { NotSupportedWarning(); }
+        public virtual void StartNotification_ConfigIDNotification(System.Action<bool> action)
+        { NotSupportedWarning(); }
+        public virtual void StartNotification_ConfigIDMissedNotification(System.Action<bool> action)
+        { NotSupportedWarning(); }
+        public virtual void StartNotification_ConfigMagneticSensor(System.Action<bool> action)
+        { NotSupportedWarning(); }
+        public virtual void StartNotification_ConfigAttitudeSensor(System.Action<bool> action)
+        { NotSupportedWarning(); }
 
 
         // ============ Commands ============
+        // ---------- 2.0.0 ----------
         public virtual void Move(int left, int right, int durationMS)
         { NotSupportedWarning(); }
         public virtual void StopLight()
@@ -131,12 +193,89 @@ namespace toio.Simulator
         { NotSupportedWarning(); }
         public virtual void PlayPresetSound(int soundId, int volume)
         { NotSupportedWarning(); }
+        internal virtual void PlaySound_Connect()
+        { NotSupportedWarning(); }
+        internal virtual void PlaySound_Disconnect()
+        { NotSupportedWarning(); }
+        internal virtual void PlaySound_PowerOn()
+        { NotSupportedWarning(); }
+        internal virtual void PlaySound_PowerOff()
+        { NotSupportedWarning(); }
         public virtual void StopSound()
         { NotSupportedWarning(); }
-        public virtual void SetSlopeThreshold(int angle)
+        public virtual void ConfigSlopeThreshold(int angle)
         { NotSupportedWarning(); }
 
+        // ---------- 2.1.0 ----------
+        public virtual void TargetMove(
+            int targetX,
+            int targetY,
+            int targetAngle,
+            int configID,
+            int timeOut,
+            Cube.TargetMoveType targetMoveType,
+            int maxSpd,
+            Cube.TargetSpeedType targetSpeedType,
+            Cube.TargetRotationType targetRotationType
+        ){ NotSupportedWarning(); }
+        public virtual void MultiTargetMove(
+            int[] targetXList,
+            int[] targetYList,
+            int[] targetAngleList,
+            Cube.TargetRotationType[] multiRotationTypeList,
+            int configID,
+            int timeOut,
+            Cube.TargetMoveType targetMoveType,
+            int maxSpd,
+            Cube.TargetSpeedType targetSpeedType,
+            Cube.MultiWriteType multiWriteType
+        ){ NotSupportedWarning(); }
+        public virtual void AccelerationMove(
+            int targetSpeed,
+            int acceleration,
+            int rotationSpeed,
+            Cube.AccPriorityType accPriorityType,
+            int controlTime
+        ){ NotSupportedWarning(); }
+
+        // ---------- 2.2.0 ----------
+        public virtual void ConfigMotorRead(bool enabled)
+        { NotSupportedWarning(); }
+
+        public virtual void ConfigIDNotification(int interval, Cube.IDNotificationType notificationType)
+        { NotSupportedWarning(); }
+
+        public virtual void ConfigIDMissedNotification(int sensitivity)
+        { NotSupportedWarning(); }
+
+        public virtual void ConfigMagneticSensor(Cube.MagneticMode mode)
+        { NotSupportedWarning(); }
+        public virtual void RequestMotionSensor()
+        { NotSupportedWarning(); }
+
+        public virtual void RequestMagneticSensor()
+        { NotSupportedWarning(); }
+
+        // ---------- 2.3.0 ----------
+        public virtual void ConfigMagneticSensor(Cube.MagneticMode mode, int interval, Cube.MagneticNotificationType notificationType)
+        { NotSupportedWarning(); }
+        public virtual void ConfigAttitudeSensor(Cube.AttitudeFormat format, int interval, Cube.AttitudeNotificationType notificationType)
+        { NotSupportedWarning(); }
+
+        public virtual void RequestAttitudeSensor(Cube.AttitudeFormat format)
+        { NotSupportedWarning(); }
+
+
+
+        // ============ Utils ============
+        protected float Deg(float d)
+        {
+            return (d%360 + 540)%360 -180;
+        }
         protected virtual void NotSupportedWarning()
-        { Debug.LogWarning("Not Supported in this firmware version."); }
+        {
+            // Debug.LogWarning("Not Supported in this firmware version.");
+        }
+
     }
 }

@@ -50,7 +50,7 @@ namespace toio.Simulator
             id_mark_finger_strike, id_mark_finger_strike_1p, id_mark_free_move,
         }
 
-        // https://toio.github.io/toio-spec/docs/info_standard_id
+        // https://toio.github.io/toio-spec/docs/hardware_standard_id
         public static readonly string[] ToioColleNames = new string[]
         {
             // Card
@@ -211,7 +211,11 @@ namespace toio.Simulator
         /// </summary>
         public int UnityDeg2MatDeg(float deg)
         {
-            return (int)(deg-this.transform.eulerAngles.y-90+0.49999f)%360;
+            return Mathf.RoundToInt(deg-this.transform.eulerAngles.y-90)%360;
+        }
+        internal float UnityDeg2MatDegF(float deg)
+        {
+            return (deg-this.transform.eulerAngles.y-90)%360;
         }
         /// <summary>
         /// Unity上の角度をStandard ID上の角度に変換
@@ -227,7 +231,7 @@ namespace toio.Simulator
         /// </summary>
         public float MatDeg2UnityDeg(float deg)
         {
-            return (int)(deg+this.transform.eulerAngles.y+90+0.49999f)%360;
+            return Mathf.RoundToInt(deg+this.transform.eulerAngles.y+90)%360;
         }
         /// <summary>
         /// Standard ID上の角度をUnity上の角度に変換

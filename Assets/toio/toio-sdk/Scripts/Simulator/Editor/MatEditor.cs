@@ -22,7 +22,7 @@ namespace toio.Simulator
             var yMax = serializedObject.FindProperty("yMax");
 
             // Mat Type list
-            var matType_new = (int)EditorGUILayout.Popup("タイプ",
+            var matType_new = (int)EditorGUILayout.Popup("Type",
                 matType.intValue,
                 Mat.MatTypeNames
             );
@@ -43,7 +43,7 @@ namespace toio.Simulator
 
 
             // Custom Mat Range
-            if (mat.matType == Mat.MatType.Custom)
+            if (mat.matType == Mat.MatType.custom)
             {
                 var xMin_new = (int)EditorGUILayout.IntField("x Min", xMin.intValue);
                 var xMax_new = (int)EditorGUILayout.IntField("x Max", xMax.intValue);

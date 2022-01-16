@@ -70,7 +70,7 @@ namespace toio.Navigation{
             this.boids = new Boids(ego); this.avoid = new HLAvoid(ego);
 
             // Add borders
-            AddBorder(70);
+            AddBorder(20);
 
             // Auto appending of others' _other
             foreach (var o in gNavigators)
@@ -86,7 +86,7 @@ namespace toio.Navigation{
             this.boids = new Boids(ego); this.avoid = new HLAvoid(ego);
 
             // Add borders
-            AddBorder(70);
+            AddBorder(20);
 
             // Auto appending of others' _other
             foreach (var o in gNavigators)
@@ -252,6 +252,20 @@ namespace toio.Navigation{
         public static void ClearGNavigators()
         {
             gNavigators.Clear();
+        }
+
+        /// <summary>
+        /// Create Default Walls (Borders)
+        /// </summary>
+        public void AddBorder(int width, RectInt rect){
+            Vector lt = new Vector(rect.xMin, rect.yMin);
+            Vector rt = new Vector(rect.xMax, rect.yMin);
+            Vector lb = new Vector(rect.xMin, rect.yMax);
+            Vector rb = new Vector(rect.xMax, rect.yMax);
+            walls.Add(new Wall(lt, lb, width));    // left
+            walls.Add(new Wall(rt, rb, width));    // right
+            walls.Add(new Wall(lt, rt, width));    // top
+            walls.Add(new Wall(lb, rb, width));    // bottom
         }
 
     }

@@ -2,10 +2,26 @@ using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
+
 namespace toio
 {
     public class BLEMobileService : BLEServiceInterface
     {
+        private static bool isFirst = true;
+        public BLEMobileService()
+        {
+            if (isFirst)
+            {
+                isFirst = false;
+                Application.quitting += this.OnApplicationQuit;
+            }
+        }
+        void OnApplicationQuit()
+        {
+            Ble.DisconnectAllPeripherals();
+            Ble.Finalize();
+        }
+
         public void RequestDevice(Action<BLEDeviceInterface> action)
         {
             Ble.Initialize(() =>

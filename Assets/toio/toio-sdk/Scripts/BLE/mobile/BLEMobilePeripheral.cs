@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace toio
 {
@@ -34,7 +33,8 @@ namespace toio
             Ble.ConnectToPeripheral(this.device_address, OnConnected, null, (address, serviceUUID, characteristicUUID) =>
             {
                 //Debug.Log("address=" + address + ". uuid=" + serviceUUID + ". chara=" + characteristicUUID);
-                characteristicAction(new BLEMobileCharacteristic(this.device_address, serviceUUID, characteristicUUID));
+                var instance = new BLEMobileCharacteristic(this.device_address, serviceUUID, characteristicUUID);
+                characteristicAction(instance);
             }, this.OnDisconnected);
         }
 
@@ -75,9 +75,11 @@ namespace toio
         /// </summary>
         private void OnConnected(string device_address)
         {
-            device_address = device_address.ToUpper();
-            this.isConnected = true;
-            this.ConnectionNotify(this);
+            if (!this.isConnected)
+            {
+                this.isConnected = true;
+                this.ConnectionNotify(this);
+            }
         }
 
         /// <summary>
@@ -85,9 +87,11 @@ namespace toio
         /// </summary>
         private void OnDisconnected(string device_address)
         {
-            device_address = device_address.ToUpper();
-            this.isConnected = false;
-            this.ConnectionNotify(this);
+            if (this.isConnected)
+            {
+                this.isConnected = false;
+                this.ConnectionNotify(this);
+            }
         }
     }
 }

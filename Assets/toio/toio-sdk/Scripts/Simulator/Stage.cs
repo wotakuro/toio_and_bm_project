@@ -19,11 +19,9 @@ namespace toio.Simulator
         {
             this.targetPole = transform.Find("TargetPole");
             this.mat = transform.Find("Mat").GetComponent<Mat>();
-            /*
             this.mainLightObj = transform.Find("Spot Light Main").gameObject;
             this.sideLightObj = transform.Find("Spot Light Side").gameObject;
             this.backLightObj = transform.Find("Spot Light Back").gameObject;
-            */
 
             SceneManager.sceneUnloaded += OnSceneUnloaded;
             SceneManager.sceneLoaded += OnSceneLoaded;
@@ -47,9 +45,9 @@ namespace toio.Simulator
                     CubeInteraction.current = this;
                 }
             }
-            else if (Input.GetMouseButtonUp(1) && CubeInteraction.GetSCA(false,true,false))
+            else if (Input.GetMouseButtonUp(1))
             {
-                if (CubeInteraction.current = this)
+                if (CubeInteraction.current==this)
                 {
                     OnRightUp();
                     CubeInteraction.current = null;

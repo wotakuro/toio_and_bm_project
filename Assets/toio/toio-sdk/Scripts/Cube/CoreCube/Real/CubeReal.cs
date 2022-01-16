@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace toio
 {
@@ -9,17 +10,7 @@ namespace toio
         //_/_/_/_/_/_/_/_/_/_/_/_/_/
         //      プロパティ
         //_/_/_/_/_/_/_/_/_/_/_/_/_/
-        public override bool isConnected { get { return this.peripheral.isConnected; } }
-
-        //_/_/_/_/_/_/_/_/_/_/_/_/_/
-        //      純粋仮想関数
-        //_/_/_/_/_/_/_/_/_/_/_/_/_/
-        public abstract UniTask StartNotifications();
-        protected abstract void Recv_battery(byte[] data);
-        protected abstract void Recv_Id(byte[] data);
-        protected abstract void Recv_button(byte[] data);
-        protected abstract void Recv_sensor(byte[] data);
-
+        public override bool isConnected { get { return this.peripheral.isConnected && isCharacteristicReady; } }
 
         //_/_/_/_/_/_/_/_/_/_/_/_/_/
         //      定数
@@ -37,13 +28,14 @@ namespace toio
         //_/_/_/_/_/_/_/_/_/_/_/_/_/
         //      内部変数
         //_/_/_/_/_/_/_/_/_/_/_/_/_/
+        protected bool isInitialized = false;
         public BLEPeripheralInterface peripheral { get; private set; }
         public Dictionary<string, BLECharacteristicInterface> characteristicTable { get; private set; }
+        public bool isCharacteristicReady { get; private set; }
 
-        public CubeReal(BLEPeripheralInterface peripheral, Dictionary<string, BLECharacteristicInterface> characteristicTable)
+        public CubeReal(BLEPeripheralInterface peripheral)
         {
             this.peripheral = peripheral;
-            this.characteristicTable = characteristicTable;
             this.isPressed = false; // 初期値:非押下
             this.isSloped = false; // 初期値:水平
             this.isCollisionDetected = false; // 初期値:非衝突
@@ -53,13 +45,50 @@ namespace toio
             this.id = addr;
         }
 
+        public virtual async UniTask Initialize(Dictionary<string, BLECharacteristicInterface> characteristicTable)
+        {
+            if (isConnected || characteristicTable == null) return;
+            var key = "CubeReal"+(this as object).GetHashCode();
+            peripheral.AddConnectionListener(key, peri =>
+                {
+                    if (!peri.isConnected) {
+                        isInitialized = false;
+                        SetCharacteristicTable(null);
+                        peripheral.RemoveConnectionListener(key);
+                    }
+                }
+            );
+            SetCharacteristicTable(characteristicTable);
+            await UniTask.Delay(0);
+            isInitialized = true;
+        }
+
+        private void SetCharacteristicTable(Dictionary<string, BLECharacteristicInterface> characteristicTable)
+        {
+            this.characteristicTable = characteristicTable;
+            if (characteristicTable == null)
+            {
+                isCharacteristicReady = false;
+                return;
+            }
+
+            isCharacteristicReady = true;
+            foreach (var chara in characteristicTable.Values)
+                if (chara == null)
+                {
+                    isCharacteristicReady = false; break;
+                }
+        }
+
         protected void Request(string characteristicName, byte[] buff, bool withResponse, Cube.ORDER_TYPE order, string DEBUG_name, params object[] DEBUG_plist)
         {
+            if (!isConnected) return;
 #if RELEASE
             CubeOrderBalancer.Instance.AddOrder(this, () => this.characteristicTable[characteristicName].WriteValue(buff, withResponse), order);
 #else
             CubeOrderBalancer.Instance.DEBUG_AddOrder(this, () => this.characteristicTable[characteristicName].WriteValue(buff, withResponse), order, DEBUG_name, DEBUG_plist);
 #endif
         }
+
     }
 }

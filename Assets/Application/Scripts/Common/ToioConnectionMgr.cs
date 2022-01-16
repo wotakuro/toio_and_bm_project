@@ -19,12 +19,12 @@ namespace BMProject
 
         private ToioConnectionMgr()
         {
-            Init();
+            Init(ConnectType.Real);
         }
 
-        private void Init()
+        private void Init(ConnectType connectType)
         {
-            this.cubeManager = new CubeManager();
+            this.cubeManager = new CubeManager(connectType);
             this.availableCubes = new List<Cube>();
         }
         public async UniTask<Cube> ConnectCube()
