@@ -60,13 +60,27 @@ namespace BMProject
             if (this.cubeManager != null &&
                 this.targetCube != null)
             {
-                this.targetCube.Move(left, right, duration, Cube.ORDER_TYPE.Weak);
-
+                StartCoroutine(ResendSendMoveCommand(left, right, duration));
                 if (virtualToio)
                 {
                     virtualToio.Move(left, right, duration);
                 }
             }
         }
+
+        private IEnumerator ResendSendMoveCommand(int left, int right, int duration)
+        {
+            if(duration <= 0) { Debug.LogError("duration should be over 1."); }
+            double currentTime = Time.realtimeSinceStartupAsDouble;
+            for (int i = 0; i < 3; ++i)
+            {
+                int actualDuration = duration - (int)((Time.realtimeSinceStartupAsDouble - currentTime) * 1000.0);
+
+                if(actualDuration <= 0) { yield break; }
+                this.targetCube.Move(left, right, actualDuration, Cube.ORDER_TYPE.Strong);
+                yield return null;
+            }
+        }
+
     }
 }

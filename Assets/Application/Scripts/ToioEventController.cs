@@ -57,7 +57,7 @@ namespace BMProject
         // キューブがヒットした時の処理
         private void OnCubeHit(Cube c)
         {
-            if( this.tm - this.lastHitTime < 0.2f)
+            if( this.tm - this.lastHitTime < 0.15f)
             {
                 return;
             }

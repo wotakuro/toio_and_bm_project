@@ -25,12 +25,15 @@ namespace BMProject
 		{
 			base.OnDisableInput();
 			StopCoroutine(this.execute);
+			this.SendMoveCmdCube(0, 0,100);
 		}
 
 		IEnumerator Control(CubeManager mgr, Cube c)
 		{
 			while (true)
 			{
+				this.SendMoveCmdCube(moveSpeed, moveSpeed, moveMsec);
+				yield return null;
 				this.SendMoveCmdCube(moveSpeed, moveSpeed, moveMsec);
 				yield return new WaitForSeconds(moveMsec * 0.001f + 0.1f);
 				this.SendMoveCmdCube(-rotateSpeed, rotateSpeed, rotateTime);
