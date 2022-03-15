@@ -38,6 +38,9 @@ namespace BMProject
 
         private void Awake()
         {
+            // sleep OFF
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
             startTimeline.gameObject.SetActive(false);
             timeOutTimeline.gameObject.SetActive(false);
             playingUI.SetActive(false);
@@ -147,6 +150,8 @@ namespace BMProject
         private void OnDestroy()
         {
             Disconnect();
+            // Sleep off
+            Screen.sleepTimeout = SleepTimeout.SystemSetting;
         }
 
         private void Disconnect()
