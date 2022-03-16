@@ -19,6 +19,8 @@ namespace BMProject
             this.targetCube = c;
             this.cubeManager = mgr;
             this.OnEnableInput(cubeManager, targetCube);
+
+            this.virtualToio.SetCube(targetCube);
         }
         public void DisableInput()
         {

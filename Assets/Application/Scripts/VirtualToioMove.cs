@@ -14,7 +14,7 @@ namespace BMProject
         private float speedL;
         private float speedR;
         private Rigidbody rb;
-        //private Cube cube;
+        private Cube cube;
 
         private int moveLeft = 0;
         private int moveRight = 0;
@@ -28,6 +28,11 @@ namespace BMProject
             rb.angularVelocity = Vector3.zero;
 
             this.rb.maxAngularVelocity = 21f;
+        }
+
+        public void SetCube(Cube c)
+        {
+            this.cube = c;
         }
 
         public void Move(int left,int right)
@@ -45,6 +50,21 @@ namespace BMProject
             this.moveRight = right;
         }
 
+        private void Update()
+        {
+            if (this.cube == null)
+            {
+                return;
+            }
+            rb.isKinematic = cube.isGrounded;
+            if (cube.isGrounded)
+            {
+                var pos = ToioPositionConverter.ConvertPosition(cube.pos);
+                this.transform.position = new Vector3(pos.x, 0.0f, pos.y);
+                this.transform.rotation = ToioPositionConverter.GetRotation(cube.angle);
+            }
+
+        }
 
         private void FixedUpdate()
         {

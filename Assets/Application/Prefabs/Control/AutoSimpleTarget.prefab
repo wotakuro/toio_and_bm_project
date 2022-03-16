@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4710826208899988779
 RectTransform:
   m_ObjectHideFlags: 0
@@ -48,7 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12de37a402294a440868ed1f940a34d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 40
+  virtualToio: {fileID: 0}
+  moveSpeed: 35
   moveMsec: 1500
   rotateSpeed: 60
-  rotateTime: 0
+  rotateTime: 150

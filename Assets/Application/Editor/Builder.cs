@@ -14,5 +14,6 @@ namespace BMProject
             var scenes = EditorBuildSettings.scenes;
             BuildPipeline.BuildPlayer(scenes, "ios", BuildTarget.iOS, option);
         }
+
     }
 }
