@@ -63,7 +63,7 @@ namespace BMProject
             }
             if (this.hitParticle)
             {
-                this.hitParticle.Play(true);
+                this.hitParticle.Emit(100);
             }
             if (this.hitAudio)
             {

@@ -91,3 +91,4 @@ Material:
     - _LineColor: {r: 0.9103774, g: 1, b: 0.9874528, a: 1}
     - _ScrollParam: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_BuildTextureStacks: []

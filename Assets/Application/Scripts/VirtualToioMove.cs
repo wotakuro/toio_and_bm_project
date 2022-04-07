@@ -21,6 +21,36 @@ namespace BMProject
         private int moveCmdDuration = 0;
         private float moveCmdTime = 0;
 
+        [SerializeField]
+        private int virtualToioID = 0;
+
+        private static Dictionary<int, VirtualToioMove> s_instances = new Dictionary<int, VirtualToioMove>();
+
+        public static VirtualToioMove GetVirtualToio(int id)
+        {
+            VirtualToioMove result;
+            if(s_instances.TryGetValue(id,out result))
+            {
+                return result;
+            }
+            return null;
+        }
+
+        private void OnEnable()
+        {
+            if (s_instances.ContainsKey(this.virtualToioID))
+            {
+                Debug.LogError("Already found virtualToio " + this.virtualToioID);
+                return;
+            }
+            s_instances.Add(this.virtualToioID, this);
+        }
+
+        private void OnDisable()
+        {
+            s_instances.Remove(this.virtualToioID);
+        }
+
         private void Start()
         {
             rb = this.GetComponent<Rigidbody>();

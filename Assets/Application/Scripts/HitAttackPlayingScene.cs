@@ -18,8 +18,6 @@ namespace BMProject
         [SerializeField]
         private LeftTimer leftTimer;
         [SerializeField]
-        private ToioController controller;
-        [SerializeField]
         private ToioEventController eventCtrl;
         [SerializeField]
         private PlayableDirector startTimeline;
@@ -27,6 +25,7 @@ namespace BMProject
         private PlayableDirector timeOutTimeline;
         [SerializeField]
         private GameObject playingUI;
+        private ToioController controller;
 
         [SerializeField]
         private ResultUI resultUI;
@@ -49,6 +48,9 @@ namespace BMProject
 
         async void Start()
         {
+
+            controller = ToioController.GetToioController(0);
+
             waitingToioConnect.StartWaiting();
             this.cubeManager = ToioConnectionMgr.Instance.cubeManager;
             this.cube = await ToioConnectionMgr.Instance.ConnectCube();
@@ -69,7 +71,7 @@ namespace BMProject
                 yield return null;
             }
 
-            this.controller.Init(cubeManager, cube);
+            this.controller.InitializeController(cubeManager, cube);
             this.eventCtrl.InitCube(cubeManager, cube);
             this.leftTimer.CountStart(OnTimeOver);
             this.isPlaying = true;
