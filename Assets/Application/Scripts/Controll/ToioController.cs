@@ -82,29 +82,37 @@ namespace BMProject
         {
         }
 
-        protected void UpdateCubeMove( int left , int right)
+        protected void UpdateCubeMove( int leftSpeed , int rightSpeed)
         {            
             if (this.cubeManager != null &&
                 this.cubeManager.IsControllable(this.targetCube) &&
                 CubeOrderBalancer.Instance.IsIdle(this.targetCube))
             {
-                this.targetCube.Move(left, right, 0, Cube.ORDER_TYPE.Weak);
+                this.targetCube.Move(leftSpeed, rightSpeed, 0, Cube.ORDER_TYPE.Weak);
 
 
-                virtualToio.Move(left, right);
+                virtualToio.Move(leftSpeed, rightSpeed);
             }
         }
-        protected void SendMoveCmdCube(int left, int right,int duration)
+        protected void SendMoveCmdCube(int leftSpeed, int rightSpeed,int duration)
         {
             if (this.cubeManager != null &&
                 this.targetCube != null)
             {
-                StartCoroutine(ResendSendMoveCommand(left, right, duration));
+                StartCoroutine(ResendSendMoveCommand(leftSpeed, rightSpeed, duration));
                 if (virtualToio)
                 {
-                    virtualToio.Move(left, right, duration);
+                    virtualToio.Move(leftSpeed, rightSpeed, duration);
                 }
             }
+        }
+
+        protected void TargetMove(int x,int y,int angle,int speed)
+        {
+            this.targetCube.TargetMove(x, y, angle, 0, 0, 
+                Cube.TargetMoveType.RoundBeforeMove,speed,
+                Cube.TargetSpeedType.UniformSpeed,
+                Cube.TargetRotationType.NotRotate);
         }
 
         private IEnumerator ResendSendMoveCommand(int left, int right, int duration)
@@ -116,8 +124,8 @@ namespace BMProject
                 int actualDuration = duration - (int)((Time.realtimeSinceStartupAsDouble - currentTime) * 1000.0);
 
                 if(actualDuration <= 0) { yield break; }
-                Cube.ORDER_TYPE orderType = Cube.ORDER_TYPE.Weak;
-                if( i == 2) { orderType = Cube.ORDER_TYPE.Strong; }
+                Cube.ORDER_TYPE orderType = Cube.ORDER_TYPE.Strong;
+                if( i == 1) { orderType = Cube.ORDER_TYPE.Weak; }
                 this.targetCube.Move(left, right, actualDuration, orderType);
                 yield return null;
             }

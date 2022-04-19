@@ -74,8 +74,8 @@ namespace BMProject
                 impulseSource.GenerateImpulseAt(Vector3.zero, Vector3.forward);
             }
 
-            c.PlayPresetSound(0);
-            c.TurnLedOn(255, 200, 200, 120);
+            c.PlayPresetSound(0,255,Cube.ORDER_TYPE.Strong);
+            c.TurnLedOn(255, 200, 200, 120,Cube.ORDER_TYPE.Weak);
             ++hitNum;
             this.lastHitTime = this.tm;
             scoreBoard.AddScore(1,LeftTimer.Instance.GetTimeFromStart());

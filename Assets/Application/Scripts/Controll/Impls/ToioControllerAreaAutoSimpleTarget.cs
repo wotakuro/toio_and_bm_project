@@ -8,12 +8,17 @@ namespace BMProject
 	public class ToioControllerAreaAutoSimpleTarget : ToioController
 	{
 		private Coroutine execute;
+		[SerializeField]
+		private Vector2Int leftUpper = new Vector2Int(46,46);
+		[SerializeField]
+		private Vector2Int rightDowner = new Vector2Int(312,239);
+		[SerializeField]
+		private float rotateTime = 1.0f;
 
-		public int moveSpeed = 40;
-		public int moveMsec= 1500;
-
-		public int rotateSpeed = 65;
-		public int rotateTime = 230;
+		[SerializeField]
+		private float moveDistance = 100;
+		[SerializeField]
+		private float moveDistanceRandom = 0;
 
 
 		protected override void OnEnableInput(CubeManager mgr, Cube c)
@@ -33,12 +38,6 @@ namespace BMProject
 		{
 			while (true)
 			{
-				this.SendMoveCmdCube(moveSpeed, moveSpeed, moveMsec);
-				yield return null;
-				this.SendMoveCmdCube(moveSpeed, moveSpeed, moveMsec);
-				yield return new WaitForSeconds(moveMsec * 0.001f + 0.1f);
-				this.SendMoveCmdCube(-rotateSpeed, rotateSpeed, rotateTime);
-				yield return new WaitForSeconds(rotateTime * 0.001f + 0.3f);
 			}
 		}
 
