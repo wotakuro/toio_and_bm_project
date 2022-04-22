@@ -21,6 +21,8 @@ namespace BMProject
         private int moveCmdDuration = 0;
         private float moveCmdTime = 0;
 
+        private ToioPositionInterpolate toioPosition;
+
         [SerializeField]
         private int virtualToioID = 0;
 
@@ -58,6 +60,7 @@ namespace BMProject
             rb.angularVelocity = Vector3.zero;
 
             this.rb.maxAngularVelocity = 21f;
+            this.toioPosition = new ToioPositionInterpolate();
         }
 
         public void SetCube(Cube c)
@@ -87,11 +90,12 @@ namespace BMProject
                 return;
             }
             rb.isKinematic = cube.isGrounded;
-            if (cube.isGrounded)
+            
+            
+            if (toioPosition.Update(this.cube))
             {
-                var pos = ToioPositionConverter.ConvertPosition(cube.pos);
-                this.transform.position = new Vector3(pos.x, 0.0f, pos.y);
-                this.transform.rotation = ToioPositionConverter.GetRotation(cube.angle);
+                this.transform.position = toioPosition.position;
+                this.transform.rotation = toioPosition.rotation;
             }
 
         }

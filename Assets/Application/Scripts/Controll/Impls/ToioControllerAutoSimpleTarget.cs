@@ -9,11 +9,15 @@ namespace BMProject
 	{
 		private Coroutine execute;
 
-		public int moveSpeed = 40;
-		public int moveMsec= 1500;
+		[SerializeField]
+		private int moveSpeed = 40;
+		[SerializeField]
+		private int moveMsec= 1500;
 
-		public int rotateSpeed = 65;
-		public int rotateTime = 230;
+		[SerializeField]
+		private int rotateSpeed = 65;
+		[SerializeField]
+		private int rotateTime = 230;
 
 		protected override void OnEnableInput(CubeManager mgr, Cube c)
 		{

@@ -107,21 +107,43 @@ namespace BMProject
             }
         }
 
-        protected void TargetMove(int x,int y,int angle,int speed)
+        protected void TargetMoveAfterRound(int x,int y,int speed)
         {
-            this.targetCube.TargetMove(x, y, angle, 0, 0, 
+            int targetAngle = 0;
+            this.targetCube.TargetMove(x, y, targetAngle, 0, 0, 
                 Cube.TargetMoveType.RoundBeforeMove,speed,
                 Cube.TargetSpeedType.UniformSpeed,
                 Cube.TargetRotationType.NotRotate);
         }
 
+        private static readonly int NearEqualPos = 20;
+        private static readonly int NearEqualAngle = 10;
+
+        protected bool IsMoveEnd(int targetX,int targetY,int angle =-1)
+        {
+            var pos = this.targetCube.pos;
+            bool isPosition = ((targetX - NearEqualAngle <= pos.x && pos.x <= targetX + NearEqualAngle)
+                && (targetY - NearEqualAngle <= pos.y && pos.y <= targetY + NearEqualAngle));
+            if (!isPosition)
+            {
+                return false;
+            }
+
+            if ( angle < 0)
+            {
+                return true;
+            }
+            return ( angle - NearEqualAngle <= this.targetCube.angle ) && (this.targetCube.angle <= angle + NearEqualAngle);
+
+        }
+
         private IEnumerator ResendSendMoveCommand(int left, int right, int duration)
         {
             if(duration <= 0) { Debug.LogError("duration should be over 1."); }
-            double currentTime = Time.realtimeSinceStartupAsDouble;
+            double currentTime = Time.timeAsDouble;
             for (int i = 0; i < 3; ++i)
             {
-                int actualDuration = duration - (int)((Time.realtimeSinceStartupAsDouble - currentTime) * 1000.0);
+                int actualDuration = duration - (int)((Time.timeAsDouble - currentTime) * 1000.0);
 
                 if(actualDuration <= 0) { yield break; }
                 Cube.ORDER_TYPE orderType = Cube.ORDER_TYPE.Strong;
