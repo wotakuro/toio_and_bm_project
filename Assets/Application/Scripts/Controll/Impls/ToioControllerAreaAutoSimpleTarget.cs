@@ -46,9 +46,13 @@ namespace BMProject
 				this.TargetMoveAfterRound(next.x, next.y, moveSpeed);
 
 				yield return new WaitForToioMovePosition(c, next);
-				
-				c.Move(-rotateSpeed, rotateSpeed, rotateTime,Cube.ORDER_TYPE.Strong);
-				yield return new WaitForSeconds(rotateTime * 0.001f + 0.1f);
+
+				if (rotateTime > 0)
+				{
+					c.Move(-rotateSpeed, rotateSpeed, rotateTime, Cube.ORDER_TYPE.Strong);
+					yield return new WaitForSeconds(rotateTime * 0.001f + 0.1f);
+				}
+				yield return new WaitForSeconds(0.1f);
 
 			}
 		}

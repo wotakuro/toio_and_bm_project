@@ -8,7 +8,7 @@ namespace BMProject
     {
         private static readonly int NearEqualPos = 20;
         private static readonly int NearEqualAngle = 10;
-        private static readonly double Timeout = 0.8;
+        private static readonly double Timeout = 0.5;
         private static readonly float JudgeMovePosition = 10.0f;
         private static readonly int JudgeMoveAngle = 10;
 
