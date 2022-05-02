@@ -26,6 +26,8 @@ namespace BMProject
         [SerializeField]
         private GameObject playingUI;
         private ToioController controller;
+        [SerializeField]
+        private float playTime = 30.0f;
 
         [SerializeField]
         private ResultUI resultUI;
@@ -56,7 +58,7 @@ namespace BMProject
             this.cube = await ToioConnectionMgr.Instance.ConnectCube();
             
             playingUI.SetActive(true);
-            leftTimer.SetTimer(30.0f);
+            leftTimer.SetTimer(playTime);
             waitingToioConnect.EndWaiting();
             this.StartCoroutine(PlayStart());
         }

@@ -63,7 +63,13 @@ namespace BMProject
             }
             if (this.hitParticle)
             {
-                this.hitParticle.Emit(100);
+                var toio = VirtualToioMove.GetVirtualToio(0);
+                if (toio)
+                {
+                    hitParticle.transform.position = toio.transform.position + Vector3.up * 0.03f;
+                    hitParticle.transform.rotation = toio.transform.rotation;
+                    this.hitParticle.Emit(100);
+                }
             }
             if (this.hitAudio)
             {

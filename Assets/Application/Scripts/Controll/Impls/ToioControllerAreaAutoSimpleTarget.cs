@@ -36,6 +36,19 @@ namespace BMProject
 			base.OnDisableInput();
 			StopCoroutine(this.execute);
 			this.SendMoveCmdCube(0, 0,100);
+			StartCoroutine(ToThePosition());
+		}
+		// âºëŒâûÅiÇ‡Ç∆Ç…ñﬂÇÈ)
+		IEnumerator ToThePosition()
+        {
+			yield return new WaitForSeconds(1.0f);
+			for (int i = 0; i < 5; ++i)
+			{
+				this.MoveToTheInitialPoint((areaLeftUpper.x + areaRightDowner.x) / 2,
+					(areaRightDowner.y *4 + areaLeftUpper.y)/5,270, 20);
+				yield return new WaitForSeconds(0.2f);
+			}
+
 		}
 
 		IEnumerator Control(CubeManager mgr, Cube c)

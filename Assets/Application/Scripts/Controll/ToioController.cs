@@ -106,6 +106,15 @@ namespace BMProject
                 }
             }
         }
+        protected void MoveToTheInitialPoint(int x, int y,int targetAngle, int speed)
+        {
+            this.targetCube.TargetMove(x, y, targetAngle, 0, 0,
+                Cube.TargetMoveType.RoundBeforeMove, speed,
+                Cube.TargetSpeedType.UniformSpeed,
+                Cube.TargetRotationType.AbsoluteLeastAngle);
+            Debug.Log("MoveTothePoint " + x + "," + y);
+        }
+
 
         protected void TargetMoveAfterRound(int x,int y,int speed)
         {
