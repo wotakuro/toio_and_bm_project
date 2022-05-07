@@ -94,4 +94,9 @@ public class ResultUI : MonoBehaviour
         };
         this.playableDirector.Play();
     }
+
+    public void Disconnected()
+    {
+        this.btnUIRoot.SetActive(true);
+    }
 }

@@ -1,5 +1,5 @@
 # toio_and_bm_project
-toioとボトルマンを使う感じの遊びプロジェクトです。
+toioで的あてして遊ぶプロジェクトです。
 iOS/Androidで動作します
 
 ## 利用OSSについて

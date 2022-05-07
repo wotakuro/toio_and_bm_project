@@ -15,6 +15,7 @@ namespace BMProject
 
         [SerializeField]
         private WaitingToioConnect waitingToioConnect;
+
         [SerializeField]
         private LeftTimer leftTimer;
         [SerializeField]
@@ -31,6 +32,9 @@ namespace BMProject
 
         [SerializeField]
         private ResultUI resultUI;
+
+        [SerializeField]
+        private GameObject disconnectToioObj;
 
         public bool isDisconnect = false;
         private bool isPlaying = false;
@@ -50,7 +54,6 @@ namespace BMProject
 
         async void Start()
         {
-
             controller = ToioController.GetToioController(0);
 
             waitingToioConnect.StartWaiting();
@@ -133,7 +136,12 @@ namespace BMProject
 
         private void OnDisconnectCube()
         {
-          //  this.leftTimer.Pause();
+            controller.DisableInput();
+            eventCtrl.EndEvent(this.cubeManager, this.cube);
+
+            this.playingUI.SetActive(false);
+            disconnectToioObj.SetActive(true);
+            resultUI.Disconnected();
         }
 
         private void Update()
