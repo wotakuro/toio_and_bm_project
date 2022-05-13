@@ -54,7 +54,6 @@ namespace BMProject
 
         async void Start()
         {
-            controller = ToioController.GetToioController(0);
 
             waitingToioConnect.StartWaiting();
             this.cubeManager = ToioConnectionMgr.Instance.cubeManager;
@@ -66,15 +65,34 @@ namespace BMProject
             this.StartCoroutine(PlayStart());
         }
 
+        // todo 仮
+        [SerializeField]
+        private GameObject controlWithoutMat;
+        [SerializeField]
+        private GameObject controlWithMat;
+
         // プレイ開始
         private IEnumerator PlayStart()
         {
+            yield return new WaitForToioGroundCheck(this.cube);
+            if (this.cube.isGrounded )
+            {
+                controlWithMat.SetActive(true);
+            }
+            else
+            {
+                controlWithoutMat.SetActive(true);
+            }
+
             startTimeline.gameObject.SetActive(true);
             startTimeline.Play();
             while(startTimeline.state == PlayState.Playing)
             {
                 yield return null;
             }
+
+
+            controller = ToioController.GetToioController(0);
 
             this.controller.InitializeController(cubeManager, cube);
             this.eventCtrl.InitCube(cubeManager, cube);

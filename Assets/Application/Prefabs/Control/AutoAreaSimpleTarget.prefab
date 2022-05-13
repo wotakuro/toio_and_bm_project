@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetToioID: 0
-  areaLeftUpper: {x: 46, y: 46}
-  areaRightDowner: {x: 312, y: 239}
-  rotateTime: 230
+  areaLeftUpper: {x: 429, y: 581}
+  areaRightDowner: {x: 598, y: 835}
+  rotateTime: 0
   rotateSpeed: 65
   moveSpeed: 50
   moveDistance: 100

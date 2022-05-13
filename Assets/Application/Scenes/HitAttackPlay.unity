@@ -442,6 +442,8 @@ MonoBehaviour:
   resultUI: {fileID: 4658203659884232140}
   disconnectToioObj: {fileID: 3355356899116303299}
   isDisconnect: 0
+  controlWithoutMat: {fileID: 1170780614}
+  controlWithMat: {fileID: 2126363297872699109}
 --- !u!1 &301315178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2064,10 +2066,16 @@ PrefabInstance:
     - target: {fileID: 4710826208899988778, guid: 3de2c46cbce5fb649a2a78b4c6141795,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3de2c46cbce5fb649a2a78b4c6141795, type: 3}
+--- !u!1 &1170780614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4710826208899988778, guid: 3de2c46cbce5fb649a2a78b4c6141795,
+    type: 3}
+  m_PrefabInstance: {fileID: 1170780613}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1233738001 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4526601073518467227, guid: 927f2ec9d81d2d24d8f01f49458f2efb,
@@ -3829,28 +3837,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2126363297409667333, guid: 969abceb5c271414ca600d2b04b3947c,
         type: 3}
-      propertyPath: rotateTime
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2126363297409667333, guid: 969abceb5c271414ca600d2b04b3947c,
-        type: 3}
       propertyPath: areaLeftUpper.x
-      value: 429
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 2126363297409667333, guid: 969abceb5c271414ca600d2b04b3947c,
         type: 3}
       propertyPath: areaLeftUpper.y
-      value: 581
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 2126363297409667333, guid: 969abceb5c271414ca600d2b04b3947c,
         type: 3}
       propertyPath: areaRightDowner.x
-      value: 598
+      value: 380
       objectReference: {fileID: 0}
     - target: {fileID: 2126363297409667333, guid: 969abceb5c271414ca600d2b04b3947c,
         type: 3}
       propertyPath: areaRightDowner.y
-      value: 835
+      value: 340
       objectReference: {fileID: 0}
     - target: {fileID: 2126363297409667334, guid: 969abceb5c271414ca600d2b04b3947c,
         type: 3}
@@ -3909,6 +3912,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 969abceb5c271414ca600d2b04b3947c, type: 3}
+--- !u!1 &2126363297872699109 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2126363297409667332, guid: 969abceb5c271414ca600d2b04b3947c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2126363297872699108}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3355356899116303298 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8333371930122159419, guid: ab28be22e0ef928478c386f12b7c1089,
