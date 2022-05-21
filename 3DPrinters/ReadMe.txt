@@ -1,19 +1,26 @@
-������̃t�H���_�ł� toio�ɔ킹��p��3D���f������u���Ă��܂��B
+こちらのフォルダでは toioに被せる用の3Dモデル等を置いています。
 
-���t�H���_�ɂ���
-�EBomb
-�@��ꐢ��^�̃K���ł��B
-�@�ڒ��܂݂̂ō\�����邱�Ƃ��\�ł��B
+■フォルダについて
+・Bomb
+　第一世代型のガワです。
+　接着剤のみで構成することが可能です。
 
-�EOther
-�@���̑��p�[�c�ł�
+・Other
+　その他パーツです
 
-�ETxBomb
-�@Tx�{���^�̃K���ł��B
-�@�ڒ��܂̑��ɁA8mm�S���~9�A4�~4�̎s�̂̃��S�u���b�N�i�������Ɍ����J���܂��j���K�v�ł��B
-�@�uBodyHitParts.stl�v�����͓������̂�3�������K�v������܂��B
+・TxBomb
+　Txボム型のガワです。
+　接着剤の他に、8mm鉄球×9個、4×4の市販のレゴブロック（中央部に穴を開けます）が必要です。
+　「BodyHitParts.stl」だけは同じものを3つ印刷する必要があります。
+  組み立てについてはコチラを参照ください。
+  https://www.youtube.com/watch?v=Gb1a6g5Lbfw
+  [![alt設定](http://img.youtube.com/vi/Gb1a6g5Lbfw/0.jpg)](https://www.youtube.com/watch?v=Gb1a6g5Lbfw)
 
-�ETBug
-�@TBug�^�̃K���ł��B
-�@�ڒ��܂̑��ɁA8mm�S���~24�A4�~4�̎s�̂̃��S�u���b�N�i�������Ɍ����J���܂��j���K�v�ł��B
 
+・TBug
+　TBug型のガワです。
+　接着剤の他に、8mm鉄球×24個、4×4の市販のレゴブロック（中央部に穴を開けます）が必要です。
+
+  組み立てについてはコチラを参照ください。
+  https://www.youtube.com/watch?v=zrvWNnlnZDs
+  [![alt設定](http://img.youtube.com/vi/zrvWNnlnZDs/0.jpg)](https://www.youtube.com/watch?v=zrvWNnlnZDs)
