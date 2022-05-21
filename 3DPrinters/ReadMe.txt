@@ -14,7 +14,6 @@
 　「BodyHitParts.stl」だけは同じものを3つ印刷する必要があります。
   組み立てについてはコチラを参照ください。
   https://www.youtube.com/watch?v=Gb1a6g5Lbfw
-  [![alt設定](http://img.youtube.com/vi/Gb1a6g5Lbfw/0.jpg)](https://www.youtube.com/watch?v=Gb1a6g5Lbfw)
 
 
 ・TBug
@@ -23,4 +22,3 @@
 
   組み立てについてはコチラを参照ください。
   https://www.youtube.com/watch?v=zrvWNnlnZDs
-  [![alt設定](http://img.youtube.com/vi/zrvWNnlnZDs/0.jpg)](https://www.youtube.com/watch?v=zrvWNnlnZDs)
