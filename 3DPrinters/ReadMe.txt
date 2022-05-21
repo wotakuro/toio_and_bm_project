@@ -19,6 +19,7 @@
 ・TBug
 　TBug型のガワです。
 　接着剤の他に、8mm鉄球×24個、4×4の市販のレゴブロック（中央部に穴を開けます）が必要です。
+  「BodyCap.stl」だけは同じものを４つ印刷する必要があります。
 
   組み立てについてはコチラを参照ください。
   https://www.youtube.com/watch?v=zrvWNnlnZDs
