@@ -7,3 +7,8 @@ iOS/Androidで動作します
 Assets/toio以下にリポジトリより取得した内容を入れています<br />
 https://github.com/morikatron/toio-sdk-for-unity/
 
+本プロジェクト内に toio SDK version 1.4を組み込み済みです。<br />
+
+## Unityバージョンについて
+Unity 2020.3.23f1でビルドしています。
+
