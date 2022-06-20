@@ -11,6 +11,7 @@ import java.util.Objects;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.Context;
+import 	android.content.IntentFilter;
 
 import com.unity3d.player.UnityPlayerActivity;
 
@@ -30,9 +31,12 @@ public class BootEventReciever extends BroadcastReceiver  {
     Intent intentActivity = new Intent(context, UnityPlayerActivity.class);
     intentActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     context.startActivity(intentActivity);
+    /*
+    UnlockDeviceReciever unlockReciever = new UnlockDeviceReciever();
+    IntentFilter intentFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+    context.registerReceiver( unlockReciever , intentFilter );
+      */
     Log.d("AutoBoot", "StartActivity ");
-  }
-  private void onLockedBootComplete(Context context, Intent intent) {
   }
 
   public static void setEnabled(Context context,boolean flag){
