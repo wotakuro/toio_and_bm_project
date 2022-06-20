@@ -199,6 +199,12 @@
         "com.unity.nuget.mono-cecil": "1.10.1"
       }
     },
+    "com.wotakuro.androidautoboot": {
+      "version": "file:AndroidAutoBoot",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

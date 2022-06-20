@@ -1,0 +1,29 @@
+package com.wotakuro.autoboot;
+
+import android.content.Context;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import android.content.BroadcastReceiver;
+import com.unity3d.player.UnityPlayerActivity;
+
+public class BootEventReciever extends BroadcastReceiver  {
+
+  
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    if(intent == null ||
+       intent.getAction() == null ||
+       !intent.getAcgtion().equals( Intent.ACTION_BOOT_COMPLETED ) ){
+      return;
+    }
+    
+    Intent intentActivity = new Intent(context, UnityPlayerActivity.class);
+    intentActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    context.startActivity(intentActivity);
+  }
+}

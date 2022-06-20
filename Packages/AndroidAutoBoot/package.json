@@ -1,0 +1,13 @@
+{
+  "name": "com.wotakuro.androidautoboot",
+  "displayName": "Android autoboot",
+  "version": "1.0.0",
+  "unity": "2020.3",
+  "description": "Android Auto boot",
+  "keywords": [
+    "Android"
+  ],
+  "category": "build",
+  "dependencies": {
+  }
+}
