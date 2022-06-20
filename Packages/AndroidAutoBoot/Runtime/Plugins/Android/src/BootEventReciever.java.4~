@@ -19,20 +19,19 @@ public class BootEventReciever extends BroadcastReceiver  {
   
   @Override
   public void onReceive(Context context, Intent intent) {
-    
-    if(intent == null ){
+        Log.d("AutoBoot", "BootEventReciever : ${intent.action}");
+    if(intent == null ||
+       intent.getAction() == null ||
+       !intent.getAction().equals( Intent.ACTION_BOOT_COMPLETED ) ){
       return;
     }
-    Log.d("AutoBoot", "BootEventReciever : " + intent.getAction());
     if(!getEnabled(context)){
       return;
-    }    
+    }
+    
     Intent intentActivity = new Intent(context, UnityPlayerActivity.class);
     intentActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     context.startActivity(intentActivity);
-    Log.d("AutoBoot", "StartActivity ");
-  }
-  private void onLockedBootComplete(Context context, Intent intent) {
   }
 
   public static void setEnabled(Context context,boolean flag){

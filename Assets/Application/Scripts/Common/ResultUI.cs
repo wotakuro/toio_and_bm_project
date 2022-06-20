@@ -6,97 +6,102 @@ using UnityEngine.Playables;
 using System.Text;
 using System;
 
-public class ResultUI : MonoBehaviour
+
+namespace BMProject
 {
-    [SerializeField]
-    private TextMeshPro ruleText;
-
-    [SerializeField]
-    private TextMeshPro playTimeTitleText;
-    [SerializeField]
-    private TextMeshPro playTimeValText;
-    [SerializeField]
-    private TextMeshPro scoreValText;
-    [SerializeField]
-    private TextMeshPro[] detailItemsText;
-    [SerializeField]
-    private TextMeshPro detailWholeText;
-
-    [SerializeField]
-    private GameObject btnUIRoot;
-
-    private PlayableDirector playableDirector;
-
-
-
-    // todo 仮
-    public ResultUI SetScore(string score)
+    public class ResultUI : MonoBehaviour
     {
-        scoreValText.text = score;
-        return this;
-    }
-    public ResultUI SetTimer(string title,string val)
-    {
-        this.playTimeTitleText.text = title;
-        this.playTimeValText.text = val;
-        return this;
-    }
+        [SerializeField]
+        private TextMeshPro ruleText;
 
-    public ResultUI SetRule(string rule)
-    {
-        this.ruleText.text = rule;
-        return this;
-    }
+        [SerializeField]
+        private TextMeshPro playTimeTitleText;
+        [SerializeField]
+        private TextMeshPro playTimeValText;
+        [SerializeField]
+        private TextMeshPro scoreValText;
+        [SerializeField]
+        private TextMeshPro[] detailItemsText;
+        [SerializeField]
+        private TextMeshPro detailWholeText;
 
-    public ResultUI SetDetail(List<string> details)
-    {
-        var sb = new StringBuilder(256);
-        int num = detailItemsText.Length;
-        for ( int i = 0;i < num; ++i) {
-            var detail = detailItemsText[i];
-            detail.text = CreateLine(sb,details,i,num);
-            detail.gameObject.SetActive(true);
-        }
-        this.detailWholeText.gameObject.SetActive(false);
-        return this;
-    }
+        [SerializeField]
+        private GameObject btnUIRoot;
 
-    private string CreateLine( StringBuilder sb,List<string> details,int idx,int lineNum)
-    {
-        sb.Clear();
-        for( int i = idx; i < details.Count; i+= lineNum)
+        private PlayableDirector playableDirector;
+
+
+
+        // todo 仮
+        public ResultUI SetScore(string score)
         {
-            sb.Append(details[i]).Append("\n");
+            scoreValText.text = score;
+            return this;
         }
-        return sb.ToString();
-    }
-
-    public ResultUI SetDetail(string txt)
-    {
-        foreach( var detail in detailItemsText)
+        public ResultUI SetTimer(string title, string val)
         {
-            detail.gameObject.SetActive(false);
+            this.playTimeTitleText.text = title;
+            this.playTimeValText.text = val;
+            return this;
         }
-        this.detailWholeText.gameObject.SetActive(true);
-        this.detailWholeText.text = txt;
-        return this;
-    }
 
-    public void StartResult()
-    {
-        this.gameObject.SetActive(true);
-        this.playableDirector = GetComponent<PlayableDirector>();
+        public ResultUI SetRule(string rule)
+        {
+            this.ruleText.text = rule;
+            return this;
+        }
 
-        this.playableDirector.Evaluate();
-        this.playableDirector.stopped += (d) =>
+        public ResultUI SetDetail(List<string> details)
+        {
+            var sb = new StringBuilder(256);
+            int num = detailItemsText.Length;
+            for (int i = 0; i < num; ++i)
+            {
+                var detail = detailItemsText[i];
+                detail.text = CreateLine(sb, details, i, num);
+                detail.gameObject.SetActive(true);
+            }
+            this.detailWholeText.gameObject.SetActive(false);
+            return this;
+        }
+
+        private string CreateLine(StringBuilder sb, List<string> details, int idx, int lineNum)
+        {
+            sb.Clear();
+            for (int i = idx; i < details.Count; i += lineNum)
+            {
+                sb.Append(details[i]).Append("\n");
+            }
+            return sb.ToString();
+        }
+
+        public ResultUI SetDetail(string txt)
+        {
+            foreach (var detail in detailItemsText)
+            {
+                detail.gameObject.SetActive(false);
+            }
+            this.detailWholeText.gameObject.SetActive(true);
+            this.detailWholeText.text = txt;
+            return this;
+        }
+
+        public void StartResult()
+        {
+            this.gameObject.SetActive(true);
+            this.playableDirector = GetComponent<PlayableDirector>();
+
+            this.playableDirector.Evaluate();
+            this.playableDirector.stopped += (d) =>
+            {
+                this.btnUIRoot.SetActive(true);
+            };
+            this.playableDirector.Play();
+        }
+
+        public void Disconnected()
         {
             this.btnUIRoot.SetActive(true);
-        };
-        this.playableDirector.Play();
-    }
-
-    public void Disconnected()
-    {
-        this.btnUIRoot.SetActive(true);
+        }
     }
 }

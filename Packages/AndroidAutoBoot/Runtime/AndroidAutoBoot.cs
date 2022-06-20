@@ -1,7 +1,6 @@
 #if UNITY_ANDROID && !UNITY_EDITOR 
 #define UNITY_ANDROID_RUNTIME
 #endif
-#define UNITY_ANDROID_RUNTIME
 
 
 #if UNITY_ANDROID_RUNTIME
@@ -27,7 +26,7 @@ namespace Wotakuro
             }
         }
 
-        public static bool GetEnabled()
+        public static bool GetEnable()
         {
             if (isRead) { return cachedFlag; }
 

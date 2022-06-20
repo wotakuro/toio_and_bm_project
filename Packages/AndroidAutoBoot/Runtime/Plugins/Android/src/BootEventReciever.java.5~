@@ -26,13 +26,16 @@ public class BootEventReciever extends BroadcastReceiver  {
     Log.d("AutoBoot", "BootEventReciever : " + intent.getAction());
     if(!getEnabled(context)){
       return;
-    }    
+    }
+    if( intent.getAction().equals(Intent.ACTION_LOCKED_BOOT_COMPLETED) ){
+      onLockedBootComplete(context,intent);
+    }
+    
+  }
+  private void onLockedBootComplete(Context context, Intent intent) {
     Intent intentActivity = new Intent(context, UnityPlayerActivity.class);
     intentActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     context.startActivity(intentActivity);
-    Log.d("AutoBoot", "StartActivity ");
-  }
-  private void onLockedBootComplete(Context context, Intent intent) {
   }
 
   public static void setEnabled(Context context,boolean flag){
