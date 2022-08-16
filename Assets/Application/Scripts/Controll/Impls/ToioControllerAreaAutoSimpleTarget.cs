@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using toio;
 using UnityEngine;
 
@@ -6,7 +6,6 @@ namespace BMProject
 {
 	public class ToioControllerAreaAutoSimpleTarget : ToioController
 	{
-		private Coroutine execute;
 		[SerializeField]
 		private Vector2Int areaLeftUpper = new Vector2Int(46,46);
 		[SerializeField]
@@ -25,6 +24,10 @@ namespace BMProject
 		private float moveDistanceRandom = 0;
 
 
+		private Coroutine execute;
+	    private ToioGroundAdjuster groundAdjuster;
+
+
 		protected override void OnEnableInput(CubeManager mgr, Cube c)
 		{
 			base.OnEnableInput(mgr, c);
@@ -38,7 +41,7 @@ namespace BMProject
 			this.SendMoveCmdCube(0, 0,100);
 			StartCoroutine(ToThePosition());
 		}
-		// ‰¼‘Î‰ži‚à‚Æ‚É–ß‚é)
+		// ä»®å¯¾å¿œï¼ˆã‚‚ã¨ã«æˆ»ã‚‹)
 		IEnumerator ToThePosition()
         {
 			yield return new WaitForSeconds(1.0f);
@@ -59,6 +62,18 @@ namespace BMProject
 				this.TargetMoveAfterRound(next.x, next.y, moveSpeed);
 
 				yield return new WaitForToioMovePosition(c, next);
+
+				if(!c.isGrounded){
+					if(groundAdjuster == null){
+						groundAdjuster = new ToioGroundAdjuster();
+					}
+					groundAdjuster.Start(c);
+					bool endFlag = false;
+					while( !endFlag ){
+						endFlag = groundAdjuster.Update() ;
+						yield return null;
+					}
+				}
 
 				if (rotateTime > 0)
 				{

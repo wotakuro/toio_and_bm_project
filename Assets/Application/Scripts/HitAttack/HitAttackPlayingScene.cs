@@ -36,10 +36,14 @@ namespace BMProject
         [SerializeField]
         private GameObject disconnectToioObj;
 
+
+
         public bool isDisconnect = false;
         private bool isPlaying = false;
 
         private bool isCallOnDisconnectCube = false;
+        
+        private ToioGroundAdjuster groundAdjuster;
 
         private void Awake()
         {
@@ -71,16 +75,31 @@ namespace BMProject
         [SerializeField]
         private GameObject controlWithMat;
 
+
         // プレイ開始
         private IEnumerator PlayStart()
         {
             yield return new WaitForToioGroundCheck(this.cube);
-            if (this.cube.isGrounded )
+            bool foundGrounded = this.cube.isGrounded ;
+
+            
+            if (!foundGrounded)
+            {
+                if(groundAdjuster == null){
+                    groundAdjuster = new ToioGroundAdjuster();
+                    groundAdjuster.Start(this.cube);
+                }
+                while(!groundAdjuster.Update())
+                {
+                    yield return null;
+                }
+                foundGrounded = groundAdjuster.isGroundFound;
+            }
+            // Select MovePattenr
+            if (foundGrounded)
             {
                 controlWithMat.SetActive(true);
-            }
-            else
-            {
+            }else{                
                 controlWithoutMat.SetActive(true);
             }
 

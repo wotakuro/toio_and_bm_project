@@ -18,6 +18,9 @@ namespace BMProject
         {
             get
             {
+                if(cube == null){
+                    return true;
+                }
                 if (cube.isGrounded) { return false; }
                 if (Time.timeAsDouble - time > 2.0) { return false; }
                 return true;

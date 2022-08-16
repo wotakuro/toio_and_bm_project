@@ -34,19 +34,24 @@ namespace BMProject
 
         private bool CheckPositionMove()
         {
+            if(this.targetCube == null){
+                return false;
+            }
             var currentTime = Time.timeAsDouble;
             var currentPosition = this.targetCube.pos;
             var currentAngle = this.targetCube.angle;
             bool updateTime = false;
 
-            if( (currentPosition - lastPostion).sqrMagnitude > JudgeMovePosition * JudgeMovePosition)
-            {
-                this.lastPostion = currentPosition;
-                updateTime = true;
-            }
-            if ( Mathf.Abs(this.lastAngle - currentAngle) >= JudgeMoveAngle) {
-                this.lastAngle = currentAngle;
-                updateTime = true;
+            if(this.targetCube.isGrounded){
+                if( (currentPosition - lastPostion).sqrMagnitude > JudgeMovePosition * JudgeMovePosition)
+                {
+                    this.lastPostion = currentPosition;
+                    updateTime = true;
+                }
+                if ( Mathf.Abs(this.lastAngle - currentAngle) >= JudgeMoveAngle) {
+                    this.lastAngle = currentAngle;
+                    updateTime = true;
+                }
             }
 
             if (updateTime)
