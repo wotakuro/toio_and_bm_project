@@ -1708,7 +1708,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6666666, y: 1}
+    m_SensorSize: {x: 1.2125604, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1724,7 +1724,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004141680}
-  m_LocalRotation: {x: 0.57853127, y: 0.000000031382232, z: -0.00000002225878, w: 0.81566024}
+  m_LocalRotation: {x: 0.57853127, y: -0.00000003138222, z: 0.000000022258773, w: 0.81566024}
   m_LocalPosition: {x: -0.00064020883, y: 1.78585, z: -0.37571564}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2093,8 +2093,9 @@ GameObject:
   - component: {fileID: 1249652792}
   - component: {fileID: 1249652791}
   - component: {fileID: 1249652789}
+  - component: {fileID: 1249652790}
   m_Layer: 10
-  m_Name: UI_EffectCamera
+  m_Name: UICamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2133,6 +2134,18 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &1249652790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249652788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017dd9990f500fb45853055269bfdc9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &1249652791
 Camera:
   m_ObjectHideFlags: 0
@@ -4552,7 +4565,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8138842909592903503}
-  m_LocalRotation: {x: 0.57853127, y: 0.000000031382232, z: -0.00000002225878, w: 0.81566024}
+  m_LocalRotation: {x: 0.57853127, y: -0.00000003138222, z: 0.000000022258773, w: 0.81566024}
   m_LocalPosition: {x: 0, y: 0.8, z: -0.45200002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

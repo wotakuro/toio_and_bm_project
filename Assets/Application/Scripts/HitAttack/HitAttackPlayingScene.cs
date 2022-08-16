@@ -93,25 +93,26 @@ namespace BMProject
                     groundAdjuster = new ToioGroundAdjuster();
                     groundAdjuster.Start(this.cube);
                 }
-                while(!groundAdjuster.Update())
-                {
-                    yield return null;
-                }
-                foundGrounded = groundAdjuster.isGroundFound;
             }
+
+            startTimeline.gameObject.SetActive(true);
+            startTimeline.Play();
+            bool endFlag = false;
+            while(!endFlag )
+            {
+                endFlag = groundAdjuster.Update();
+                endFlag |= (startTimeline.state != PlayState.Playing);
+                yield return null;
+            }
+            foundGrounded = groundAdjuster.isGroundFound;
+
+            
             // Select MovePattenr
             if (foundGrounded)
             {
                 controlWithMat.SetActive(true);
             }else{                
                 controlWithoutMat.SetActive(true);
-            }
-
-            startTimeline.gameObject.SetActive(true);
-            startTimeline.Play();
-            while(startTimeline.state == PlayState.Playing)
-            {
-                yield return null;
             }
 
 
