@@ -62,11 +62,15 @@ namespace BMProject
             waitingToioConnect.StartWaiting();
             this.cubeManager = ToioConnectionMgr.Instance.cubeManager;
             this.cube = await ToioConnectionMgr.Instance.ConnectCube();
+            if(this.cube != null){
+                playingUI.SetActive(true);
+                leftTimer.SetTimer(playTime);
+                waitingToioConnect.EndWaiting();
+                this.StartCoroutine(PlayStart());
+            }else{
+                resultUI.Disconnected();
+            }
             
-            playingUI.SetActive(true);
-            leftTimer.SetTimer(playTime);
-            waitingToioConnect.EndWaiting();
-            this.StartCoroutine(PlayStart());
         }
 
         // todo 仮

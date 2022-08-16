@@ -38,7 +38,9 @@ namespace BMProject
         }
         public void ReleaseCube(Cube cube)
         {
-            this.availableCubes.Add(cube);
+            if(cube != null){
+                this.availableCubes.Add(cube);
+            }
         }
 
         private Cube GetAvailableCube()
