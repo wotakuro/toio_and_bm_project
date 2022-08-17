@@ -143,9 +143,9 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
-  m_textAlignment: 514
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.6374283, y: 1.4204636, z: -5.0135384, w: 0}
+  m_margin: {x: 0.6374283, y: 1.4204636, z: -5.0135384, w: 0.6007252}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -198,7 +198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7835518014592456166
 Transform:
   m_ObjectHideFlags: 0
@@ -208,7 +208,7 @@ Transform:
   m_GameObject: {fileID: 7835518014592456167}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1111112, y: 1.1111112, z: 1}
   m_Children:
   - {fileID: 7835518014059080675}
   - {fileID: 7835518014632255893}
@@ -241,13 +241,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c0789e72d6287c41bbb93fb23c4a0e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_FixedWidth: 1
   m_position: {x: 0, y: 0}
   horizontalPoint: 1
   verticalPoint: 1
   depth: 0
   rotateAngle: 0
-  selfBoxCenter: {x: 1.098999, y: 3.2815208}
-  selfBoxSize: {x: 48, y: 4.2398243}
+  selfBoxCenter: {x: 0.07999992, y: 2.7799997}
+  selfBoxSize: {x: 32, y: 3.236782}
 --- !u!1 &7835518014632255894
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,8 +274,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7835518014632255894}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.099, y: 2.7799997, z: 6.41}
-  m_LocalScale: {x: 300, y: 20.22989, z: 1}
+  m_LocalPosition: {x: 0.08, y: 2.7799997, z: 6.41}
+  m_LocalScale: {x: 200, y: 20.22989, z: 1}
   m_Children: []
   m_Father: {fileID: 7835518014592456166}
   m_RootOrder: 1
