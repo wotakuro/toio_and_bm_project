@@ -102,8 +102,10 @@ namespace BMProject
             while(!endFlag ){
                 if(groundAdjuster != null){
                     endFlag = groundAdjuster.Update();
+                    endFlag &= (startTimeline.state != PlayState.Playing);                
+                }else{
+                    endFlag = (startTimeline.state != PlayState.Playing);                
                 }
-                endFlag &= (startTimeline.state != PlayState.Playing);                
                 yield return null;
             }
             // groundCheck
