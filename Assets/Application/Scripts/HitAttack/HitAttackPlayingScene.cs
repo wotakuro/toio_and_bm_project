@@ -98,14 +98,18 @@ namespace BMProject
             startTimeline.gameObject.SetActive(true);
             startTimeline.Play();
             bool endFlag = false;
-            while(!endFlag )
-            {
-                endFlag = groundAdjuster.Update();
-                endFlag |= (startTimeline.state != PlayState.Playing);
+            
+            while(!endFlag ){
+                if(groundAdjuster != null){
+                    endFlag = groundAdjuster.Update();
+                }
+                endFlag |= (startTimeline.state != PlayState.Playing);                
                 yield return null;
             }
-            foundGrounded = groundAdjuster.isGroundFound;
-
+            // groundCheck
+            if(groundAdjuster != null && !foundGrounded){
+                foundGrounded = groundAdjuster.isGroundFound;
+            }
             
             // Select MovePattenr
             if (foundGrounded)
