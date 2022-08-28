@@ -32,6 +32,11 @@ namespace BMProject.UI
             }
         }
 
+        public Ray GetRay(Vector3 screenPosition) {
+            var ray = this.CameraComponent.ScreenPointToRay(screenPosition);
+            return ray;
+        }
+
         public Vector2 virtualScreenSize{get;private set;}
 
         void Awake(){

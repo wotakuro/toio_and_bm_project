@@ -13,7 +13,26 @@ using System;
 
 namespace BMProject
 {
+    [DefaultExecutionOrder(-200)]
     public class InputWrapper :MonoBehaviour{
+
+        public enum CurrentInputMethod
+        {
+            Mouse,
+            Controller,
+        }
+
+        public enum Key
+        {
+            Select = 0,
+            Up = 1,
+            Down = 2,
+            Left = 3,
+            Right = 4,
+        }
+        private static readonly int KeyNum = 5;
+
+        private int[] keyFrames = new int[KeyNum];
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         public static void Initialize()
@@ -23,6 +42,31 @@ namespace BMProject
         }
 
         public static InputWrapper Instance { get; private set; }
+
+
+        public bool updatePositionFlag
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public Vector3 pointPosition
+        {
+            get
+            {
+                return Input.mousePosition;
+            }
+        }
+
+        public bool isOnClicked
+        {
+            get
+            {
+                return Input.GetMouseButtonUp(0);
+            }
+        }
 
         public void Awake()
         {
@@ -37,16 +81,6 @@ namespace BMProject
             }
         }
 
-        public enum Key { 
-            Select = 0,
-            Up = 1,
-            Down = 2,
-            Left = 3,
-            Right = 4,
-        }
-        private static readonly int KeyNum = 5;
-
-        private int[] keyFrames = new int[KeyNum];
 
 
         public bool IsKey(Key key)
