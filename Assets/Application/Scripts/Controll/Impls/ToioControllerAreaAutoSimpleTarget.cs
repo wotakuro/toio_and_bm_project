@@ -6,9 +6,7 @@ namespace BMProject
 {
 	public class ToioControllerAreaAutoSimpleTarget : ToioController
 	{
-		[SerializeField]
 		private Vector2Int areaLeftUpper = new Vector2Int(46,46);
-		[SerializeField]
 		private Vector2Int areaRightDowner = new Vector2Int(312,239);
 		[SerializeField]
 		private int rotateTime = 230;
@@ -32,6 +30,9 @@ namespace BMProject
 		{
 			base.OnEnableInput(mgr, c);
 			this.execute = this.StartCoroutine(Control(mgr,c));
+
+			this.areaLeftUpper = GlobalGameConfig.currentConfig.areaLeftUpper;
+			this.areaRightDowner = GlobalGameConfig.currentConfig.areaRightDowner;
 		}
 
 		protected override void OnDisableInput()

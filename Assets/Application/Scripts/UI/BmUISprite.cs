@@ -40,7 +40,26 @@ namespace BMProject.UI
         [SerializeField]
         private Vector2 selfBoxSize;
 
+        private void OnEnable()
+        {
 
+            var uiCamera = BmUICamera.Instance;
+            if (!uiCamera)
+            {
+                Debug.LogWarning("uiCamera is not alive");
+                return;
+            }
+
+            Vector3 position;
+            position.z = 1.0f + depth * 0.1f;
+            position.x = GetActualPositionX();
+            position.y = GetActualPositionY();
+
+            // X position
+            transform.localPosition = position;
+            transform.localRotation = GetActualRotation();
+            transform.localScale = GetActualScale();
+        }
 
         // Update is called once per frame
         void LateUpdate()

@@ -33,6 +33,8 @@ namespace BMProject
         private static readonly int KeyNum = 5;
 
         private int[] keyFrames = new int[KeyNum];
+        private CurrentInputMethod m_currentInput = CurrentInputMethod.Controller;
+        private Vector3 m_currentMousePosition;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         public static void Initialize()
@@ -48,7 +50,7 @@ namespace BMProject
         {
             get
             {
-                return true;
+                return (m_currentInput == CurrentInputMethod.Mouse);
             }
         }
 
@@ -56,7 +58,7 @@ namespace BMProject
         {
             get
             {
-                return Input.mousePosition;
+                return m_currentMousePosition;//;
             }
         }
 
@@ -96,13 +98,19 @@ namespace BMProject
             return (keyFrames[(int)key] == -1);
         }
 
-
-        private void LateUpdate()
+        private void Start()
         {
+            m_currentMousePosition = Input.mousePosition;
+        }
+
+        private void Update()
+        {
+            bool anyKeyIsOn = false;
             for(int i = 0; i < keyFrames.Length; i++)
             {
                 if(IsKeyOn(i))
                 {
+                    anyKeyIsOn = true;
                     if (keyFrames[i] <= 0)
                     {
                         keyFrames[i] = 1;
@@ -125,6 +133,16 @@ namespace BMProject
                 }
 
             }
+            if(anyKeyIsOn)
+            {
+                m_currentInput = CurrentInputMethod.Controller;
+            }
+            var mousePos = Input.mousePosition;
+            if( (mousePos - m_currentMousePosition).sqrMagnitude > float.Epsilon)
+            {
+                m_currentInput = CurrentInputMethod.Mouse;
+            }
+            m_currentMousePosition = mousePos;
         }
 
         private bool IsKeyOn(int idx)

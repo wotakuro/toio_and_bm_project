@@ -20,6 +20,8 @@ namespace BMProject.UI
         private double currentSelectedTime;
         private RaycastHit[] raycastHits;
 
+        private int m_controllSelectIdx;
+
         private void OnEnable()
         {
             if(managers == null)
@@ -64,16 +66,65 @@ namespace BMProject.UI
             if (!shouldUpdate) {
                 return;
             }
-            UpdatePointed();
+            InputWrapper inputWrapper = InputWrapper.Instance;
+
+            if(inputWrapper.updatePositionFlag){
+                UpdatePointed();
+            }
+            else
+            {
+                UpdateController();
+            }
+
+            if (currentSelect)
+            {
+                currentSelect.OnSelectedObject((float)(Time.timeAsDouble - this.currentSelectedTime));
+            }
+
+        }
+
+        private void UpdateController()
+        {
+            InputWrapper inputWrapper = InputWrapper.Instance;
+            if (!currentSelect && buttons != null && buttons.Count > 0)
+            {
+                this.SelectButton(buttons[0]);
+            }
+            // select Object
+            if (inputWrapper.IsKeyDown(InputWrapper.Key.Up))
+            {
+                ControllSelect(-1);
+            }
+            if (inputWrapper.IsKeyDown(InputWrapper.Key.Down))
+            {
+                ControllSelect(1);
+            }
+
+
+            if (currentSelect && inputWrapper.IsKeyDown(InputWrapper.Key.Select))
+            {
+                currentSelect.OnClickedObject();
+            }
+        }
+
+        private void ControllSelect(int p)
+        {
+            int max = buttons.Count;
+            this.m_controllSelectIdx += p;
+            if(this.m_controllSelectIdx >= max)
+            {
+                this.m_controllSelectIdx = 0;
+            }
+            if(this.m_controllSelectIdx < 0)
+            {
+                this.m_controllSelectIdx = max - 1;
+            }
+            this.SelectButton(buttons[this.m_controllSelectIdx]);
         }
 
         private void UpdatePointed()
         {
             InputWrapper inputWrapper = InputWrapper.Instance;
-            if (!inputWrapper.updatePositionFlag)
-            {
-                return;
-            }
 
             if (raycastHits == null)
             {
@@ -84,8 +135,18 @@ namespace BMProject.UI
             num = Physics.RaycastNonAlloc(ray, raycastHits);
 
             var btnObj = GetPointedButton(raycastHits, num);
-            
-            if(this.currentSelect != btnObj)
+
+            SelectButton(btnObj);
+
+            if (inputWrapper.isOnClicked && this.currentSelect)
+            {
+                this.currentSelect.OnClickedObject();
+            }
+        }
+
+        private void SelectButton(BmUIButton btnObj)
+        {
+            if (this.currentSelect != btnObj)
             {
                 this.currentSelectedTime = Time.timeAsDouble;
                 if (this.currentSelect)
@@ -96,18 +157,8 @@ namespace BMProject.UI
                 {
                     btnObj.OnSelectedObject(0.0f);
                 }
-            }else
-            {
-                if (currentSelect)
-                {
-                    currentSelect.OnSelectedObject((float)(Time.timeAsDouble - this.currentSelectedTime));
-                }
             }
             this.currentSelect = btnObj;
-            if (inputWrapper.isOnClicked && this.currentSelect)
-            {
-                this.currentSelect.OnClickedObject();
-            }
         }
 
         BmUIButton GetPointedButton(RaycastHit[] hits,int num)

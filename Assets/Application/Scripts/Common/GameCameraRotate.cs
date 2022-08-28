@@ -30,11 +30,32 @@ namespace BMProject
 
         private Camera m_Camera;
 
+        private Quaternion originRotate;
+
         // Start is called before the first frame update
         void Awake()
         {
             m_Camera = this.GetComponent<Camera>();
             Instance = this;
+#if UNITY_EDITOR
+            if (!UnityEditor.EditorApplication.isPlaying)
+            {
+                return;
+            }
+#endif
+
+                switch ( GlobalGameConfig.currentConfig.rotateType)
+            {
+                case GlobalGameConfig.RotateType.None:
+                    rotateType = RotateType.None;
+                    break;
+                case GlobalGameConfig.RotateType.RightUp:
+                    rotateType = RotateType.RightUp;
+                    break;
+                case GlobalGameConfig.RotateType.LeftUp:
+                    rotateType = RotateType.LeftUp;
+                    break;
+            }
         }
         private void OnDestroy()
         {
@@ -45,16 +66,17 @@ namespace BMProject
         }
 
 #if UNITY_EDITOR
-        private Quaternion originRotate;
         private void Update()
         {
             this.originRotate = transform.rotation;
         }
 #endif
 
+
         // Update is called once per frame
         void LateUpdate()
         {
+            this.originRotate = transform.rotation;
 #if UNITY_EDITOR
             if (!Instance)
             {
@@ -64,7 +86,10 @@ namespace BMProject
             {
                 m_Camera = this.GetComponent<Camera>();
             }
-            this.transform.rotation = originRotate;
+            if (!UnityEditor.EditorApplication.isPlaying)
+            {
+                this.transform.rotation = originRotate;
+            }
 #endif
             Quaternion q;
             switch (m_rotateType)

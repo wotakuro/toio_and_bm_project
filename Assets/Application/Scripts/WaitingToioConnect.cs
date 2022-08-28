@@ -29,7 +29,7 @@ namespace BMProject
         // Update is called once per frame
         void Update()
         {
-            animatedCube.transform.rotation = Quaternion.Euler(new Vector3(0, Mathf.Max(0.0f,animateTime-0.2f) * 360.0f, 0));
+            animatedCube.transform.localRotation = Quaternion.Euler(new Vector3(0, Mathf.Max(0.0f,animateTime-0.2f) * 360.0f, 0));
             if (animateFlag)
             {
                 animateTime += Time.deltaTime;

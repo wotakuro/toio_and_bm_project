@@ -47,6 +47,25 @@ namespace BMProject.UI
             Instance = this;
             this.CameraComponent = this.GetComponent<Camera>();
             this.transform.rotation = Quaternion.identity;
+#if UNITY_EDITOR
+            if (!UnityEditor.EditorApplication.isPlaying)
+            {
+                return;
+            }
+#endif
+
+            switch (GlobalGameConfig.currentConfig.rotateType)
+            {
+                case GlobalGameConfig.RotateType.None:
+                    rotateType = RotateType.None;
+                    break;
+                case GlobalGameConfig.RotateType.RightUp:
+                    rotateType = RotateType.RightUp;
+                    break;
+                case GlobalGameConfig.RotateType.LeftUp:
+                    rotateType = RotateType.LeftUp;
+                    break;
+            }
         }
 
 
