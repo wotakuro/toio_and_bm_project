@@ -21,8 +21,6 @@ namespace BMProject.UI
 
             debugRendereBounds = EditorGUILayout.Toggle("DebugGizmo",debugRendereBounds);
             obj.debugDrawGizmo = debugRendereBounds;
-
-
         }
 
     }

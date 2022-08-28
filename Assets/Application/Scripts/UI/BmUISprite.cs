@@ -60,8 +60,15 @@ namespace BMProject.UI
             transform.localPosition = position;
             transform.localRotation = GetActualRotation();
             transform.localScale = GetActualScale();
-
         }
+
+#if UNITY_EDITOR
+        public void ForceUpdateImmidiate()
+        {
+            this.LateUpdate();
+        }
+
+#endif
 
         private Vector3 GetActualScale(bool forceNonRotate = false)
         {
@@ -72,7 +79,7 @@ namespace BMProject.UI
 
             var uiCamera = BmUICamera.Instance;
             float size = 1.0f;
-            if (uiCamera.Rotate == BmUICamera.RotateType.None)
+            if (uiCamera.rotateType == BmUICamera.RotateType.None)
             {
                 size = (uiCamera.virtualScreenSize.x * 2.0f / this.selfBoxSize.x) * m_FixedWidth;
             }
@@ -90,7 +97,7 @@ namespace BMProject.UI
             float offset = 0.0f;
             if (!forceNonRotate)
             {
-                switch (uiCamera.Rotate)
+                switch (uiCamera.rotateType)
                 {
                     case BmUICamera.RotateType.RightUp:
                         offset = -90;
@@ -106,7 +113,7 @@ namespace BMProject.UI
         private float GetActualPositionX(bool forceNonRotate = false){
             var uiCamera = BmUICamera.Instance;
             Vector2 virtualScreenSize = uiCamera.virtualScreenSize;
-            if(uiCamera.Rotate ==  BmUICamera.RotateType.None || forceNonRotate)
+            if(uiCamera.rotateType ==  BmUICamera.RotateType.None || forceNonRotate)
             {
                 switch(horizontalPoint){
                     case HorizontalPoint.Left:
@@ -121,7 +128,7 @@ namespace BMProject.UI
             }
             else{
                 float offscale = 1;
-                if(uiCamera.Rotate ==  BmUICamera.RotateType.LeftUp){
+                if(uiCamera.rotateType ==  BmUICamera.RotateType.LeftUp){
                     offscale = -1;
                 }
                 switch(verticalPoint){
@@ -142,7 +149,7 @@ namespace BMProject.UI
         private float GetActualPositionY(bool forceNonRotate = false){
             var uiCamera = BmUICamera.Instance;
             Vector2 virtualScreenSize = uiCamera.virtualScreenSize;
-            if(uiCamera.Rotate ==  BmUICamera.RotateType.None || forceNonRotate){
+            if(uiCamera.rotateType ==  BmUICamera.RotateType.None || forceNonRotate){
                 switch(verticalPoint){
                     case VerticalPoint.Up:
                         return m_position.y * virtualScreenSize.y  + virtualScreenSize.y
@@ -156,17 +163,17 @@ namespace BMProject.UI
             }
             else{
                 float offscale = 1;
-                if(uiCamera.Rotate ==  BmUICamera.RotateType.LeftUp){
+                if(uiCamera.rotateType ==  BmUICamera.RotateType.LeftUp){
                     offscale = -1;
                 }
                 switch(horizontalPoint){
                     case HorizontalPoint.Left:
-                        return (m_position.x * virtualScreenSize.x  + virtualScreenSize.y
+                        return (-m_position.x * virtualScreenSize.y  + virtualScreenSize.y
                             - selfBoxSize.x * 0.5f) * offscale - selfBoxCenter.x;         
                     case HorizontalPoint.Center:
-                        return (m_position.x * virtualScreenSize.y ) * offscale - selfBoxCenter.x;
+                        return (-m_position.x * virtualScreenSize.y ) * offscale - selfBoxCenter.x;
                     case HorizontalPoint.Right:
-                        return (m_position.x  * virtualScreenSize.x - virtualScreenSize.y
+                        return (-m_position.x  * virtualScreenSize.y - virtualScreenSize.y
                             + selfBoxSize.x * 0.5f) * offscale - selfBoxCenter.x;
                 }
             }

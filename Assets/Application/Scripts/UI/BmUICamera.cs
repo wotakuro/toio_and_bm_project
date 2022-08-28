@@ -20,9 +20,13 @@ namespace BMProject.UI
         [SerializeField]
         private RotateType m_rotateType;
 
-        public RotateType Rotate{
+        public RotateType rotateType{
             get{
                 return m_rotateType;
+            }
+            set
+            {
+                m_rotateType = value;
             }
         }
         
@@ -61,6 +65,16 @@ namespace BMProject.UI
             virtualScreenSize = new Vector2( CameraComponent.orthographicSize / (float)Screen.height * (float)Screen.width,
                             CameraComponent.orthographicSize);
         }
+#if UNITY_EDITOR
+        public void ForceUpdateImmediate()
+        {
+            var sprs = this.GetComponentsInChildren<BmUISprite>(true);
+            foreach(var spr in sprs)
+            {
+                spr.ForceUpdateImmidiate();
+            }
+        }
+#endif
 
         void OnDestroy(){
             if(Instance == this){
