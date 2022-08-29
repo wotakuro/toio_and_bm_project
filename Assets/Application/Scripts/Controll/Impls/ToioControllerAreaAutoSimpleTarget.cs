@@ -40,16 +40,18 @@ namespace BMProject
 			base.OnDisableInput();
 			StopCoroutine(this.execute);
 			this.SendMoveCmdCube(0, 0,100);
-			StartCoroutine(ToThePosition());
+			StartCoroutine(ToThePosition(1.0f));
 		}
 		// 仮対応（もとに戻る)
-		IEnumerator ToThePosition()
+		IEnumerator ToThePosition(float firstWait)
         {
-			yield return new WaitForSeconds(1.0f);
+			yield return new WaitForSeconds(firstWait);
 			for (int i = 0; i < 5; ++i)
 			{
-				this.MoveToTheInitialPoint((areaLeftUpper.x + areaRightDowner.x) / 2,
-					(areaRightDowner.y *4 + areaLeftUpper.y)/5,270, 20);
+				var initPos = ToioPositionConverter.GetInitializePosition(areaLeftUpper, areaRightDowner);
+				var initRot = ToioPositionConverter.GetInitializeRotation(areaLeftUpper, areaRightDowner);
+				this.MoveToTheInitialPoint(initPos, initRot, 20);
+
 				yield return new WaitForSeconds(0.2f);
 			}
 
@@ -57,9 +59,11 @@ namespace BMProject
 
 		IEnumerator Control(CubeManager mgr, Cube c)
 		{
+			this.areaLeftUpper = GlobalGameConfig.currentConfig.areaLeftUpper;
+			this.areaRightDowner = GlobalGameConfig.currentConfig.areaRightDowner;
 			while (true)
 			{
-				var next = NextMovePoint(Vector2.zero, this.areaLeftUpper, this.areaRightDowner);
+				var next = NextMovePoint( c.pos, this.areaLeftUpper, this.areaRightDowner);
 				this.TargetMoveAfterRound(next.x, next.y, moveSpeed);
 
 				yield return new WaitForToioMovePosition(c, next);
@@ -92,6 +96,7 @@ namespace BMProject
 			int height = areaRD.y - areaLU.y;
 			int xPos = UnityEngine.Random.Range(areaLU.x, areaRD.x);
 			int yPos = UnityEngine.Random.Range(areaLU.y, areaRD.y);
+			//Debug.Log("MoveNextPosition " + xPos + "," + yPos +"\n" + areaRD + "\n" + areaLU);
 			return new Vector2Int(xPos,yPos);
         }
 

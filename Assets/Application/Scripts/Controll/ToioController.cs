@@ -45,8 +45,6 @@ namespace BMProject
         {
             this.targetCube = c;
             this.cubeManager = mgr;
-            this.OnEnableInput(cubeManager, targetCube);
-            this.updateFlag = true;
 
             this.virtualToio = VirtualToioMove.GetVirtualToio(this.targetToioID);
             if (this.virtualToio != null)
@@ -54,6 +52,13 @@ namespace BMProject
                 this.virtualToio.SetCube(targetCube);
             }
         }
+
+        public void EnableInput()
+        {
+            this.OnEnableInput(cubeManager, targetCube); 
+            this.updateFlag = true;
+        }
+
         public void DisableInput()
         {
             this.updateFlag = false;
@@ -106,13 +111,12 @@ namespace BMProject
                 }
             }
         }
-        protected void MoveToTheInitialPoint(int x, int y,int targetAngle, int speed)
+        protected void MoveToTheInitialPoint(Vector2Int pos,int targetAngle, int speed)
         {
-            this.targetCube.TargetMove(x, y, targetAngle, 0, 0,
+            this.targetCube.TargetMove(pos.x, pos.y, targetAngle, 0, 0,
                 Cube.TargetMoveType.RoundBeforeMove, speed,
                 Cube.TargetSpeedType.UniformSpeed,
                 Cube.TargetRotationType.AbsoluteLeastAngle);
-            Debug.Log("MoveTothePoint " + x + "," + y);
         }
 
 

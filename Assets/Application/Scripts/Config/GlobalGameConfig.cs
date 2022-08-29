@@ -38,9 +38,9 @@ namespace BMProject
         {
             var config = new GlobalGameConfig();
             /* TX Shadow Bomb Field */
-            config.areaLeftUpper = new Vector2Int(110, 180);
-            config.areaRightDowner = new Vector2Int(380, 340);
-            config.rotateType = RotateType.None;
+            config.areaLeftUpper = new Vector2Int(600, 830);
+            config.areaRightDowner = new Vector2Int(390, 600);
+            config.rotateType = RotateType.RightUp;
             /* toio playmat default */
             /*
             config.areaLeftUpper = new Vector2Int(46, 46);

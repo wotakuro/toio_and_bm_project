@@ -7,8 +7,7 @@ namespace BMProject
     public class WaitForToioMovePosition : CustomYieldInstruction
     {
         private static readonly int NearEqualPos = 20;
-        private static readonly int NearEqualAngle = 10;
-        private static readonly double Timeout = 0.5;
+        private static readonly int NearEqualAngle = 15;
         private static readonly float JudgeMovePosition = 10.0f;
         private static readonly int JudgeMoveAngle = 10;
 
@@ -18,13 +17,14 @@ namespace BMProject
         private int lastAngle;
         private Vector2Int targetPostion;
         private int targetAngle;
+        private double timeoutParam = 0.5;
 
 
         public override bool keepWaiting
         {
             get
             {
-                if (!CheckPositionMove())
+                if (MoveTimeoutCheck())
                 {
                     return false;
                 }
@@ -32,7 +32,7 @@ namespace BMProject
             }
         }
 
-        private bool CheckPositionMove()
+        private bool MoveTimeoutCheck()
         {
             if(this.targetCube == null){
                 return false;
@@ -58,18 +58,27 @@ namespace BMProject
             {
                 this.lastUpdateTime = currentTime;
             }
-            //Debug.Log("updateTime " + updateTime + "::" + currentTime + "::" + lastUpdateTime);
-            return (currentTime - lastUpdateTime < Timeout);
+            bool isTimeout = (currentTime - lastUpdateTime >= timeoutParam);
+            
+            /*
+            if (isTimeout)
+            {
+                Debug.Log("WaitPos timeup " + updateTime + "::" + currentTime + "::" + lastUpdateTime);
+            }
+            */
+            return isTimeout;
         }
 
 
-        public WaitForToioMovePosition(toio.Cube cube,Vector2Int goal,int angle=-1)
+        public WaitForToioMovePosition(toio.Cube cube,Vector2Int goal,int angle=-1,double timeout = 0.5)
         {
             this.targetCube = cube;
+            this.targetPostion = goal;
             this.targetAngle = angle;
             this.lastUpdateTime = Time.timeAsDouble;
             this.lastPostion = cube.pos;
             this.lastAngle = cube.angle;
+            this.timeoutParam = timeout;
         }
 
         private bool IsMoveEnd(int targetX, int targetY, int angle = -1)
@@ -80,15 +89,19 @@ namespace BMProject
 
             if (!isPosition)
             {
+               // Debug.Log("MoveIsNot End " + targetX + "," + targetY + "  :: " + pos);
+
                 return false;
             }
 
             if (angle < 0)
             {
+                //Debug.Log("movePositionEnd with non-angle");
                 return true;
             }
             bool result= (angle - NearEqualAngle <= this.targetCube.angle) && (this.targetCube.angle <= angle + NearEqualAngle);
 
+            //Debug.Log("movePositionEnd " + result);
             return result;
 
         }

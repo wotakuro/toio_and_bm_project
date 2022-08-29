@@ -83,6 +83,7 @@ namespace BMProject
         // プレイ開始
         private IEnumerator PlayStart()
         {
+
             yield return new WaitForToioGroundCheck(this.cube);
             bool foundGrounded = this.cube.isGrounded ;
 
@@ -93,38 +94,55 @@ namespace BMProject
                     groundAdjuster = new ToioGroundAdjuster();
                     groundAdjuster.Start(this.cube);
                 }
-            }
-
-            startTimeline.gameObject.SetActive(true);
-            startTimeline.Play();
-            bool endFlag = false;
-            
-            while(!endFlag ){
-                if(groundAdjuster != null){
-                    endFlag = groundAdjuster.Update();
-                    endFlag &= (startTimeline.state != PlayState.Playing);                
-                }else{
-                    endFlag = (startTimeline.state != PlayState.Playing);                
+                while (!groundAdjuster.Update())
+                {
+                    yield return null;
                 }
-                yield return null;
-            }
-            // groundCheck
-            if(groundAdjuster != null && !foundGrounded){
                 foundGrounded = groundAdjuster.isGroundFound;
             }
-            
             // Select MovePattenr
             if (foundGrounded)
             {
                 controlWithMat.SetActive(true);
-            }else{                
+            }
+            else
+            {
                 controlWithoutMat.SetActive(true);
             }
-
-
-            controller = ToioController.GetToioController(0);
-
+            this.controller = ToioController.GetToioController(0);
             this.controller.InitializeController(cubeManager, cube);
+
+            // 初期位置に移動
+            if(foundGrounded){
+                var currentConfig = GlobalGameConfig.currentConfig;
+                Vector2Int initPos = ToioPositionConverter.GetInitializePosition(
+                    currentConfig.areaLeftUpper, currentConfig.areaRightDowner);
+                int initRot = ToioPositionConverter.GetInitializeRotation(
+                    currentConfig.areaLeftUpper, currentConfig.areaRightDowner);
+
+                for (int i = 0; i < 2; ++i)
+                {
+                    cube.TargetMove(initPos.x, initPos.y, initRot,0,0,
+                        Cube.TargetMoveType.RoundBeforeMove,40);
+                    yield return new WaitForToioMovePosition(cube, initPos, initRot, 2.0);
+                    yield return null;
+                }
+            }
+
+            // start ready go
+            startTimeline.gameObject.SetActive(true);
+            startTimeline.Play();
+            
+            while(startTimeline.state == PlayState.Playing)
+            {               
+                yield return null;
+            }
+            // groundCheck
+            
+
+
+
+            this.controller.EnableInput();
             this.eventCtrl.InitCube(cubeManager, cube);
             this.leftTimer.CountStart(OnTimeOver);
             this.isPlaying = true;

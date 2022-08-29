@@ -1,9 +1,9 @@
 {
-    "m_SelectedDeviceId": "G071EL1515023735",
+    "m_SelectedDeviceId": "D2400N102150518A",
     "m_SelectedPackage": {
-        "deviceId": "G071EL1515023735",
+        "deviceId": "D2400N102150518A",
         "name": "com.Wotakuro.ToioBMProj",
-        "processId": 8825,
+        "processId": 3712,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -138,6 +138,24 @@
             "deviceId": "D2400N102150518A",
             "name": "com.Wotakuro.ToioBMProj",
             "processId": 3113,
+            "exited": false
+        },
+        {
+            "deviceId": "D2400N102150518A",
+            "name": "com.Wotakuro.ToioBMProj",
+            "processId": 3560,
+            "exited": false
+        },
+        {
+            "deviceId": "D2400N102150518A",
+            "name": "com.Wotakuro.ToioBMProj",
+            "processId": 3043,
+            "exited": false
+        },
+        {
+            "deviceId": "D2400N102150518A",
+            "name": "com.Wotakuro.ToioBMProj",
+            "processId": 3712,
             "exited": false
         },
         {

@@ -14,13 +14,23 @@ namespace BMProject
         private const float A3_Width = 0.420f;
         private const float A3_Height = 0.297f;
 
+        public static Vector2Int GetInitializePosition(Vector2Int areaLeftUpper,Vector2Int areaRightDowner)
+        {
+            return new Vector2Int((areaLeftUpper.x + areaRightDowner.x) / 2,
+                    (areaRightDowner.y + areaLeftUpper.y * 4) / 5);
+        }
+        public static int GetInitializeRotation(Vector2Int areaLeftUpper, Vector2Int areaRightDowner)
+        {
+            // ‰¼‘Î‰ž
+            return 270;
+        }
 
         public static Vector2 ConvertPosition(Vector2 pos)
         {
             float toioWidth = (RightX - LeftX);
             float toioHeight = (DownY - UpY);
-            float widthScale = A3_Width / toioWidth;
-            float heightScale = A3_Height / -toioHeight;
+            float widthScale = A3_Width / -toioWidth;
+            float heightScale = A3_Height / toioHeight;
 
             pos.x *= widthScale;
             pos.y *= heightScale;
@@ -30,7 +40,7 @@ namespace BMProject
 
         public static Quaternion GetRotation(int angle)
         {
-            return Quaternion.Euler(0, angle + 90, 0);
+            return Quaternion.Euler(0, angle - 90, 0);
         }
     }
 }
