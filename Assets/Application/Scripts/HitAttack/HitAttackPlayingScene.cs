@@ -63,7 +63,6 @@ namespace BMProject
             this.cubeManager = ToioConnectionMgr.Instance.cubeManager;
             this.cube = await ToioConnectionMgr.Instance.ConnectCube();
             if(this.cube != null){
-                playingUI.SetActive(true);
                 leftTimer.SetTimer(playTime);
                 waitingToioConnect.EndWaiting();
                 this.StartCoroutine(PlayStart());
@@ -137,11 +136,8 @@ namespace BMProject
             {               
                 yield return null;
             }
-            // groundCheck
-            
 
-
-
+            playingUI.SetActive(true);
             this.controller.EnableInput();
             this.eventCtrl.InitCube(cubeManager, cube);
             this.leftTimer.CountStart(OnTimeOver);

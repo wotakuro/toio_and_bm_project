@@ -18,6 +18,8 @@ namespace BMProject
 
         private CinemachineCollisionImpulseSource impulseSource;
 
+        private bool isPlaying = false;
+
 
         private int hitNum = 0;
 
@@ -47,17 +49,23 @@ namespace BMProject
             // 衝突レベルセット
             c.ConfigCollisionThreshold(7);
             c.collisionCallback.AddListener("ToioEventCtrl", OnCubeHit);
+            this.isPlaying = true;
         }
 
         public void EndEvent(CubeManager mgr, Cube c)
         {
+            this.isPlaying = false;
             c.collisionCallback.RemoveListener("ToioEventCtrl");
         }
 
         // キューブがヒットした時の処理
         private void OnCubeHit(Cube c)
         {
-            if( this.tm - this.lastHitTime < 0.15f)
+            if (!this.isPlaying)
+            {
+                return;
+            }
+            if ( this.tm - this.lastHitTime < 0.15f)
             {
                 return;
             }
