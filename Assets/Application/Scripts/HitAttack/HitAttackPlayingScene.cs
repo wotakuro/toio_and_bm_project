@@ -115,9 +115,9 @@ namespace BMProject
             if(foundGrounded){
                 var currentConfig = GlobalGameConfig.currentConfig;
                 Vector2Int initPos = ToioPositionConverter.GetInitializePosition(
-                    currentConfig.areaLeftUpper, currentConfig.areaRightDowner);
+                    currentConfig.areaRightFront, currentConfig.areaLeftBack);
                 int initRot = ToioPositionConverter.GetInitializeRotation(
-                    currentConfig.areaLeftUpper, currentConfig.areaRightDowner);
+                    currentConfig.areaRightFront, currentConfig.areaLeftBack);
 
                 for (int i = 0; i < 2; ++i)
                 {

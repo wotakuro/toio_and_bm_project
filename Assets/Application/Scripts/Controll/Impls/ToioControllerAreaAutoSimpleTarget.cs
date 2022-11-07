@@ -6,8 +6,8 @@ namespace BMProject
 {
 	public class ToioControllerAreaAutoSimpleTarget : ToioController
 	{
-		private Vector2Int areaLeftUpper = new Vector2Int(46,46);
-		private Vector2Int areaRightDowner = new Vector2Int(312,239);
+		private Vector2Int areaRightFront = new Vector2Int(46,46);
+		private Vector2Int areaLeftBack = new Vector2Int(312,239);
 		[SerializeField]
 		private int rotateTime = 230;
 		[SerializeField]
@@ -31,8 +31,8 @@ namespace BMProject
 			base.OnEnableInput(mgr, c);
 			this.execute = this.StartCoroutine(Control(mgr,c));
 
-			this.areaLeftUpper = GlobalGameConfig.currentConfig.areaLeftUpper;
-			this.areaRightDowner = GlobalGameConfig.currentConfig.areaRightDowner;
+			this.areaRightFront = GlobalGameConfig.currentConfig.areaRightFront;
+			this.areaLeftBack = GlobalGameConfig.currentConfig.areaLeftBack;
 		}
 
 		protected override void OnDisableInput()
@@ -48,8 +48,8 @@ namespace BMProject
 			yield return new WaitForSeconds(firstWait);
 			for (int i = 0; i < 5; ++i)
 			{
-				var initPos = ToioPositionConverter.GetInitializePosition(areaLeftUpper, areaRightDowner);
-				var initRot = ToioPositionConverter.GetInitializeRotation(areaLeftUpper, areaRightDowner);
+				var initPos = ToioPositionConverter.GetInitializePosition(areaRightFront, areaLeftBack);
+				var initRot = ToioPositionConverter.GetInitializeRotation(areaRightFront, areaLeftBack);
 				this.MoveToTheInitialPoint(initPos, initRot, 20);
 
 				yield return new WaitForSeconds(0.2f);
@@ -59,11 +59,11 @@ namespace BMProject
 
 		IEnumerator Control(CubeManager mgr, Cube c)
 		{
-			this.areaLeftUpper = GlobalGameConfig.currentConfig.areaLeftUpper;
-			this.areaRightDowner = GlobalGameConfig.currentConfig.areaRightDowner;
+			this.areaRightFront = GlobalGameConfig.currentConfig.areaRightFront;
+			this.areaLeftBack = GlobalGameConfig.currentConfig.areaLeftBack;
 			while (true)
 			{
-				var next = NextMovePoint( c.pos, this.areaLeftUpper, this.areaRightDowner);
+				var next = NextMovePoint( c.pos, this.areaRightFront, this.areaLeftBack);
 				this.TargetMoveAfterRound(next.x, next.y, moveSpeed);
 
 				yield return new WaitForToioMovePosition(c, next);

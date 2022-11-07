@@ -44,7 +44,7 @@ namespace BMProject
             }
 #endif
 
-                switch ( GlobalGameConfig.currentConfig.rotateType)
+            switch ( GlobalGameConfig.currentConfig.rotateType)
             {
                 case GlobalGameConfig.RotateType.None:
                     rotateType = RotateType.None;

@@ -8,7 +8,7 @@ namespace BMProject
     public class WaitingToioConnect : MonoBehaviour
     {
         private float animateTime = 0.0f;
-        private bool animateFlag = false;
+        private bool animateFlag = true;
         [SerializeField]
         private Transform animatedCube;
 
