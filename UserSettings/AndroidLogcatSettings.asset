@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "D2400N102150518A",
         "name": "com.Wotakuro.ToioBMProj",
-        "processId": 3712,
+        "processId": 3232,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -156,6 +156,12 @@
             "deviceId": "D2400N102150518A",
             "name": "com.Wotakuro.ToioBMProj",
             "processId": 3712,
+            "exited": false
+        },
+        {
+            "deviceId": "D2400N102150518A",
+            "name": "com.Wotakuro.ToioBMProj",
+            "processId": 3232,
             "exited": false
         },
         {

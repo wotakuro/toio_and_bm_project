@@ -16,32 +16,57 @@ namespace BMProject
 
         public static Vector2Int GetInitializePosition(Vector2Int areaRightFront,Vector2Int areaLeftBack)
         {
-            return new Vector2Int((areaRightFront.x + areaLeftBack.x) / 2,
-                    (areaLeftBack.y + areaRightFront.y * 4) / 5);
-        }
-        public static int GetInitializeRotation(Vector2Int areaRightFront, Vector2Int areaLeftBack)
-        {
-            // ‰¼‘Î‰ž
-            if(areaRightFront.x < areaLeftBack.x)
+            if (areaRightFront.x < areaLeftBack.x)
             {
-                if(areaRightFront.y < areaLeftBack.y)
+                if (areaRightFront.y < areaLeftBack.y)
                 {
-                    return 270;
+                    return new Vector2Int((areaRightFront.x + areaLeftBack.x) / 2,
+                            (areaLeftBack.y *4 + areaRightFront.y) / 5);
                 }
                 else
                 {
-                    return 90;
+                    return new Vector2Int((areaRightFront.x  + areaLeftBack.x * 4) / 5,
+                            (areaLeftBack.y + areaRightFront.y) / 2);
                 }
             }
             else
             {
                 if (areaRightFront.y < areaLeftBack.y)
                 {
-                    return 180;
+                    return new Vector2Int((areaRightFront.x + areaLeftBack.x *4) / 5,
+                            (areaLeftBack.y + areaRightFront.y ) / 2);
                 }
                 else
                 {
+                    return new Vector2Int((areaRightFront.x + areaLeftBack.x) / 2,
+                            (areaLeftBack.y * 4 + areaRightFront.y) / 5);
+
+                }
+            }
+
+        }
+        public static int GetInitializeRotation(Vector2Int areaRightFront, Vector2Int areaLeftBack)
+        {
+            if(areaRightFront.x < areaLeftBack.x)
+            {
+                if(areaRightFront.y < areaLeftBack.y)
+                {
+                    return 270; // ok 
+                }
+                else
+                {
+                    return 180;
+                }
+            }
+            else
+            {
+                if (areaRightFront.y < areaLeftBack.y)
+                {
                     return 0;
+                }
+                else
+                {
+                    return 90;
 
                 }
             }
@@ -60,6 +85,20 @@ namespace BMProject
             return pos;
         }
 
+
+        public static bool IsInPlayArea( Vector2 pos, Vector2Int areaRightFront, Vector2Int areaLeftBack,float margin = 0.0f)
+        {
+            if ( (areaRightFront.x - margin <= pos.x && pos.x <= areaLeftBack.x + margin) ||
+                (areaRightFront.x + margin >= pos.x && pos.x >= areaLeftBack.x - margin) ) {
+
+                if ((areaRightFront.y -margin <= pos.y && pos.y <= areaLeftBack.y + margin) ||
+                    (areaRightFront.y +margin >= pos.y && pos.y >= areaLeftBack.y - margin))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public static Quaternion GetRotation(int angle)
         {
             return Quaternion.Euler(0, angle - 90, 0);

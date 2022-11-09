@@ -46,6 +46,8 @@ namespace BMProject
 
         private Cube cube;
         ToioPlayAreaPositionDetector detector;
+
+        private Coroutine areaMoveCoroutine;
         private void Start()
         {
             uiCamera = BmUICamera.Instance;
@@ -161,8 +163,47 @@ namespace BMProject
                         this.cube.PlayPresetSound(6);
                         confirm.SetActive(true);
                         this.step = EStep.Confirm;
+                        areaMoveCoroutine = StartCoroutine(StartAreaMove());
                     }
                     break;
+            }
+        }
+
+        private IEnumerator StartAreaMove()
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            var initPos = ToioPositionConverter.GetInitializePosition(this.gameConfig.areaRightFront, this.gameConfig.areaLeftBack);
+            var initRot = ToioPositionConverter.GetInitializeRotation(this.gameConfig.areaRightFront, this.gameConfig.areaLeftBack);
+            this.cube.TargetMove(initPos.x, initPos.y, initRot,
+                0,0,Cube.TargetMoveType.RoundBeforeMove,40);
+            yield return new WaitForSeconds(3.0f);
+            Vector2Int[] goals = new Vector2Int[]
+            {
+                new Vector2Int(this.gameConfig.areaRightFront.x, this.gameConfig.areaRightFront.y),
+                new Vector2Int(this.gameConfig.areaRightFront.x, this.gameConfig.areaLeftBack.y),
+                new Vector2Int(this.gameConfig.areaLeftBack.x, this.gameConfig.areaLeftBack.y),
+                new Vector2Int(this.gameConfig.areaLeftBack.x, this.gameConfig.areaRightFront.y),
+            };
+
+            while (true)
+            {
+
+                int idx = 0;
+                for (int i = 0; i < 5; ++i)
+                {
+                    yield return new WaitForToioMovePosition(cube, goals[idx%4]);
+
+                    this.cube.TargetMove(goals[idx%4].x, goals[idx%4].y, 0,
+                        0, 0, Cube.TargetMoveType.RoundBeforeMove, 45,
+                        Cube.TargetSpeedType.UniformSpeed, Cube.TargetRotationType.NotRotate);
+                    yield return new WaitForToioMovePosition(cube, goals[idx%4]);
+                    ++idx;
+                }
+                yield return new WaitForSeconds(1.0f);
+                this.cube.TargetMove(initPos.x, initPos.y, initRot,
+                    0, 0, Cube.TargetMoveType.RoundBeforeMove, 40);
+                yield return new WaitForSeconds(8.0f);
             }
         }
 
@@ -185,7 +226,11 @@ namespace BMProject
         private void NextScene()
         {
             SceneManager.LoadScene("SelectMode");
-
+            ;
+            if (cube != null)
+            {
+                cube.Move(0, 0, 0, Cube.ORDER_TYPE.Strong);
+            }
         }
 
         public void BackToSetup()
@@ -194,6 +239,14 @@ namespace BMProject
             this.confirm.SetActive(false);
             this.step = EStep.RotateTypeSelect;
             this.detector.Clear();
+            if(areaMoveCoroutine != null)
+            {
+                StopCoroutine(areaMoveCoroutine);
+                areaMoveCoroutine = null;
+                if(cube != null) { 
+                    cube.Move(0, 0, 0,Cube.ORDER_TYPE.Strong); 
+                }
+            }
         }
         
     }
