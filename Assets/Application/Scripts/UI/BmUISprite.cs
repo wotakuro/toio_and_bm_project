@@ -40,6 +40,28 @@ namespace BMProject.UI
         [SerializeField]
         private Vector2 selfBoxSize;
 
+        #region OVERRIDE_METHOD
+
+        public void SetFixedWidth(float fixedWidth)
+        {
+            m_FixedWidth = fixedWidth;
+        }
+        public void SetPosition(Vector2 position)
+        {
+            m_position = position;
+        }
+
+        public void SetHorizontalPoint(HorizontalPoint p)
+        {
+            this.horizontalPoint = p;
+        }
+        public void SetVerticalPoint(VerticalPoint p)
+        {
+            this.verticalPoint = p;
+        }
+        #endregion OVERRIDE_METHOD
+
+
         private void OnEnable()
         {
 

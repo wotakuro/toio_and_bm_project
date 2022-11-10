@@ -40,7 +40,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400185513}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1072,6 +1072,7 @@ GameObject:
   - component: {fileID: 946930176999870598}
   - component: {fileID: 2741292079452448020}
   - component: {fileID: 4658203659884232142}
+  - component: {fileID: 9116312136146541524}
   m_Layer: 10
   m_Name: ResultUI
   m_TagString: Untagged
@@ -1088,7 +1089,7 @@ Transform:
   m_GameObject: {fileID: 4658203658263312185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 5.75}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8187135, y: 0.8187135, z: 1}
   m_Children:
   - {fileID: 8989909110351724869}
   - {fileID: 6329432575005366987}
@@ -1120,7 +1121,7 @@ MonoBehaviour:
   - {fileID: 3669592051074885605}
   - {fileID: 4028956945465811629}
   detailWholeText: {fileID: 6043172113599615676}
-  btnUIRoot: {fileID: 4658203658263312185}
+  btnUIRoot: {fileID: 0}
 --- !u!320 &946930176999870598
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -1179,7 +1180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c0789e72d6287c41bbb93fb23c4a0e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FixedWidth: -1
+  m_FixedWidth: 0.7
   m_position: {x: 0, y: 0}
   horizontalPoint: 1
   verticalPoint: 1
@@ -1187,6 +1188,31 @@ MonoBehaviour:
   rotateAngle: 0
   selfBoxCenter: {x: 0, y: 0.031291008}
   selfBoxSize: {x: 30.4, y: 20.054583}
+--- !u!114 &9116312136146541524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4658203658263312185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb948102c3db2a40bd6aad5d0fff547, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRotateScreen: 1
+  overrideFixedWidth:
+    flag: 1
+    param: 1
+  overridePosition:
+    flag: 1
+    param: {x: 0, y: 0}
+  overrideHorizontalPoint:
+    flag: 1
+    param: 1
+  overrideVerticalPoint:
+    flag: 1
+    param: 1
 --- !u!1 &4658203658609287289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1910,7 +1936,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -5.3557796, w: 0.6739311}
+  m_margin: {x: 0, y: 0, z: 17.221682, w: 0.6739311}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3076,7 +3102,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5160021346639860591}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
