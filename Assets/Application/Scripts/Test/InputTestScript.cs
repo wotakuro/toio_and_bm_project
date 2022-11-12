@@ -31,6 +31,8 @@ public class InputTestScript : MonoBehaviour
                 Append( InputWrapper.Instance.IsKey(val) ).Append( "\n" );
         }
 
+        sb.Append(InputWrapper.Instance.pointPosition).Append("::")
+            .Append(InputWrapper.Instance.isOnClicked).Append("\n");
 #if UNITY_ANDROID_RUNTIME
         sb.Append("\nAutoBoot ").Append( Wotakuro.AndroidAutoBoot.GetEnable() );
         if (InputWrapper.Instance.IsKeyDown(InputWrapper.Key.Select))

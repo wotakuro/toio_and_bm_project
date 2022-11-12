@@ -151,6 +151,7 @@ namespace BMProject
             switch (keycode)
             {
                 case Key.Select:
+                    if (Input.GetMouseButton(0)) { return false; }
                     return Input.GetKey(KeyCode.KeypadEnter) ||
                         Input.GetKey(KeyCode.Return)||  Input.GetKey((KeyCode)10) || Input.GetButton("Fire1");
                 case Key.Up:
