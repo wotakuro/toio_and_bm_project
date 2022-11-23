@@ -23,6 +23,8 @@ namespace BMProject
         [SerializeField]
         public RotateType rotateType = RotateType.None;
 
+        private static readonly string Prefs = "txconfig";
+
         private static string FilePath
         {
             get
@@ -63,18 +65,31 @@ namespace BMProject
         public void Save()
         {
             var jsonStr = JsonUtility.ToJson(this);
+#if !UNITY_WEBGL && !UNITY_EDITOR
             string path = FilePath;
             File.WriteAllText(path , jsonStr);
+#else
+            PlayerPrefs.SetString(Prefs, jsonStr);
+            PlayerPrefs.Save();
+#endif
         }
 
         private static GlobalGameConfig Load()
         {
+#if !UNITY_WEBGL && !UNITY_EDITOR
             string path = FilePath;
             if (File.Exists(path))
             {
                 string str = File.ReadAllText(path);
                 return JsonUtility.FromJson<GlobalGameConfig>(str);
             }
+#else
+            var jsonStr = PlayerPrefs.GetString(Prefs);
+            if (!string.IsNullOrEmpty(jsonStr))
+            {
+                return JsonUtility.FromJson<GlobalGameConfig>(jsonStr);
+            }
+#endif
             return null;
         }
 

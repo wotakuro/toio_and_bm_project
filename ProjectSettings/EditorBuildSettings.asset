@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Application/Scenes/HitAttackPlay.unity
     guid: c7fb338ca0f9589419966aa42cde22c4
+  - enabled: 1
+    path: Assets/Application/Scenes/PracticePlay.unity
+    guid: 83ce5b538dd10604d98d03da205880ce
+  - enabled: 0
+    path: Assets/Application/Scenes/InputTestMode.unity
+    guid: d8c197b3ab043c8478019a4670e359a0
   m_configObjects: {}
