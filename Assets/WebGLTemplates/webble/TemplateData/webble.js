@@ -1,4 +1,4 @@
-// device
+﻿// device
 var deviceCount = 0;
 var deviceTable = {};
 var deviceEventTable = {};
@@ -17,29 +17,57 @@ var characteristicTable = {};
 var characteristicIdTable = {};
 var characteristicNotificationTable = {};
 
+function actual_ble_requestDevice(SERVICE_UUID, callback, errorCallback){
+  
+    if( !document.getElementById("bleDialog" ) ){
+      // setup html
+      var html = '<div id="bleDialog" style="background:#000000;opacity:0.9;width:100%;height:100%;position:fixed;top:0%;z-index:2147483647;">' + 
+               '  <div style="position:relative;top:30%;" align="center" vertical-align="middle">' + 
+               '    <div id="bleConnectToio" style="color:#ffffff;font-size:42px;">toio™へ接続します。</div>' + 
+               '    <div style="margin-top:10px">' + 
+               '      <input style="font-size:32pt;" id="bleDialogOK" type="button" value="OK" onclick="" >' + 
+               '    </div>' + 
+               '  </div>' + 
+               '</div>';
+      var element = document.createElement('div');
+      element.innerHTML = html;
+      // write to html
+      document.body.appendChild( element );
+
+      // set Event
+      var okFunction = function(){
+        document.getElementById("bleDialog" ).style.display = "none";
+        let options = {};
+        options.filters = [ {services: [SERVICE_UUID]}, ];
+        navigator.bluetooth.requestDevice(options)
+        .then(device => {
+            let id = deviceCount;
+            if (device.id in deviceIdTable)
+            {
+                id = deviceIdTable[device.id];
+            }
+            else
+            {
+                deviceIdTable[device.id] = id;
+                deviceCount++;
+            }
+            deviceTable[id] = device;
+            callback(id, device.id, device.name);
+        })
+        .catch(error => {
+            errorCallback(error.message);
+        });
+      };
+
+      var okBtn = document.getElementById("bleDialogOK");
+      okBtn.onclick = okFunction;
+    }
+}
+
 // callback(int deviceID, string deviceUUID, string deviceName)
 function bluetooth_requestDevice(SERVICE_UUID, callback, errorCallback)
 {
-    let options = {};
-    options.filters = [ {services: [SERVICE_UUID]}, ];
-    navigator.bluetooth.requestDevice(options)
-    .then(device => {
-        let id = deviceCount;
-        if (device.id in deviceIdTable)
-        {
-            id = deviceIdTable[device.id];
-        }
-        else
-        {
-            deviceIdTable[device.id] = id;
-            deviceCount++;
-        }
-        deviceTable[id] = device;
-        callback(id, device.id, device.name);
-    })
-    .catch(error => {
-        errorCallback(error.message);
-    });
+    actual_ble_requestDevice(SERVICE_UUID, callback, errorCallback);
 }
 
 // callback(int deviceID, int serverID, int serviceID, string serviceUUID)
