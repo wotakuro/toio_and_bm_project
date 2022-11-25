@@ -17,6 +17,7 @@ namespace toio
                 if (instance == null)
                 {
                     GameObject gameObject = new GameObject();
+                    GameObject.DontDestroyOnLoad(gameObject);
                     gameObject.name = "~WebBluetoothScript";
                     instance = (WebBluetoothScript)gameObject.AddComponent(typeof(WebBluetoothScript));
                     instance.SetObjectName(gameObject.name);
@@ -162,6 +163,8 @@ namespace toio
         public void StartNotifications(int characteristicID, Action<byte[]> callback)
         {
 #if UNITY_WEBGL
+           // Debug.LogFormat("[WebBluetoothScript.StartNotifications]characteristicID: {0}", characteristicID );
+
             this.callbackTable_StartNotifications[characteristicID] = callback;
             call_startNotifications(characteristicID);
 #endif
@@ -174,6 +177,7 @@ namespace toio
         public void StopNotifications(int characteristicID)
         {
 #if UNITY_WEBGL
+           // Debug.LogFormat("[WebBluetoothScript.StopNotifications]characteristicID: {0}", characteristicID);
             call_stopNotifications(characteristicID);
 #endif
         }
@@ -284,7 +288,16 @@ namespace toio
         {
             var bytes = IntPtr2Bytes(ptr, len);
             //Debug.LogFormat("[WebBluetoothScript.callback_StartNotifications]characteristicID: {0}, buff: {1}", characteristicID, Bytes2String(bytes));
-            instance.callbackTable_StartNotifications[characteristicID].Invoke(bytes);
+            try
+            {
+                if (instance.callbackTable_StartNotifications.ContainsKey(characteristicID))
+                {
+                    instance.callbackTable_StartNotifications[characteristicID].Invoke(bytes);
+                }
+            }catch(System.Exception e)
+            {
+                Debug.LogError(e);
+            }
         }
 
         private static string Bytes2String(byte[] bytes)

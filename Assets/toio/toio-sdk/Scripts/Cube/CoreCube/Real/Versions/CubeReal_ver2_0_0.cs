@@ -344,10 +344,12 @@ namespace toio
 #if !UNITY_EDITOR && UNITY_ANDROID
             await UniTask.Delay(500);
 #endif
+            /*
             this.characteristicTable[CHARACTERISTIC_BUTTON].StartNotifications(this.Recv_button);
 #if !UNITY_EDITOR && UNITY_ANDROID
             await UniTask.Delay(500);
 #endif
+            */
             this.characteristicTable[CHARACTERISTIC_SENSOR].StartNotifications(this.Recv_sensor);
 #if !UNITY_EDITOR && UNITY_ANDROID
             await UniTask.Delay(500);

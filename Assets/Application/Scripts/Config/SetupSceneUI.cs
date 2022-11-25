@@ -129,6 +129,9 @@ namespace BMProject
         {
             if (this.step == EStep.RotateTypeSelect)
             {
+#if UNITY_WEBGL && !UNITY_EDITOR
+                OnSubmitSelectNone();
+#endif
                 return;
             }
             toioConnecting.SetActive(cube == null);
