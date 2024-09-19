@@ -2,20 +2,39 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.unity3d.player">
-  <uses-permission android:name="android.permission.BLUETOOTH" />
-  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-  <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
-  <!--
-         If your app targets Android 9 or lower, you can declare
-         ACCESS_COARSE_LOCATION instead.
+
+
+	<uses-feature android:name="android.software.leanback"
+        android:required="false" />
+	<uses-feature android:name="android.hardware.touchscreen"
+              android:required="false" />
+	<!--
+         Permissions
     -->
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-  <application
+	<uses-permission android:name="android.permission.BLUETOOTH"
+                     android:maxSdkVersion="30" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
+                     android:maxSdkVersion="30" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+                     android:maxSdkVersion="30"
+                     android:minSdkVersion="29"/>
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"
+                     android:maxSdkVersion="28"
+                     android:minSdkVersion="26"/>
+	<uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+                     android:minSdkVersion="31"
+                     android:usesPermissionFlags="neverForLocation" />
+	<uses-permission android:name="android.permission.BLUETOOTH_CONNECT"
+                     android:minSdkVersion="31"/>
+	<!-- application must have ble hardware  -->
+	<uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+
+	<application
 		android:theme="@style/UnityThemeSelector"
 		android:icon="@drawable/app_icon"
         android:label="@string/app_name">
         <activity android:name="com.unity3d.player.UnityPlayerActivity"
+				  android:exported="true"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,5 +42,5 @@
             </intent-filter>
             <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
         </activity>
-    </application>
+	</application>
 </manifest>
