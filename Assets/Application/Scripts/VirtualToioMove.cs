@@ -56,7 +56,7 @@ namespace BMProject
         private void Start()
         {
             rb = this.GetComponent<Rigidbody>();
-            rb.velocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
             this.rb.maxAngularVelocity = 21f;
@@ -146,7 +146,7 @@ namespace BMProject
         {
             this.rb.angularVelocity = transform.up * (float)((speedL - speedR) / CubeSimulator.TireWidthM);
             var vel = transform.forward * (speedL + speedR) / 2;
-            var dv = vel - this.rb.velocity;
+            var dv = vel - this.rb.linearVelocity;
             this.rb.AddForce(dv, ForceMode.VelocityChange);
         }
 
