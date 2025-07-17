@@ -63,3 +63,7 @@ crashlytics-build.properties
 # (use for developing only)
 
 Packages/NonPublic*
+
+
+# DS_Store
+.DS_Store
