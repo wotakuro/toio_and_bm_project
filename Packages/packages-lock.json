@@ -111,7 +111,7 @@
     },
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.4",
-      "depth": 1,
+      "depth": 3,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -248,14 +248,6 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
-    },
-    "com.utj.stripvariant": {
-      "version": "file:NonPublicStrippingByVariantCollection",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.nuget.mono-cecil": "1.10.1"
-      }
     },
     "com.wotakuro.androidautoboot": {
       "version": "file:AndroidAutoBoot",
